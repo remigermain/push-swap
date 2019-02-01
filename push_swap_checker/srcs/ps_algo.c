@@ -6,22 +6,12 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 19:27:50 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 20:15:43 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap_checker.h"
-
-void	check_final(t_puswc *lst)
-{
-	int ret = ft_issort(lst->stack_a, lst->len_a);
-	if (ret == 1 && lst->len_b == -1)
-		ft_printf("OK");
-	else
-		ft_printf("KO");
-	ft_printf("\n");
-}
 
 int	ps_checker2(t_puswc *lst, char *line)
 {
@@ -68,6 +58,5 @@ int		ps_checker(t_puswc *lst)
 		}
 		free(line);
 	}
-	check_final(lst);
-	return (1);
+	return (ft_issort(lst->stack_a, lst->len_a));
 }

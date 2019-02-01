@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 10:28:48 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 19:58:03 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 20:19:06 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,6 +25,8 @@ int ft_issort(int *stack_a, int len)
 		else
 			return (-1);
 	}
+	if (lst->len_b != -1)
+		return (-1);
 	return (1);
 }
 
