@@ -6,20 +6,20 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/01 19:41:29 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/01 19:41:02 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME = push_swap
+NAME = checker
 
 #CFLAGS = -Wall -Werror -Wextra
 
 INCLUDE = -Iincludes
 
-HEADER = push_swap.h
+HEADER = push_swap_checker.h
 
-LIBFT = libft/libft.a
+LIBFT = ../libft/libft.a
 
 OBJ = $(SRC:.c=.o)
 
@@ -38,7 +38,7 @@ CHEADER = $(addprefix $(DHEADER),$(HEADER))
 # *****************************************************************************#
 
 SRC = main.c check_arg.c struct_init.c ps_algo.c ps_instruction.c \
-		utils.c ps_debug.c
+		utils.c
 
 COUNT = "1"
 SPACE = "            "
@@ -47,7 +47,7 @@ ESC = $(shell printf '\033')
 
 print_libft : 
 	@printf	"\n\033[34m"
-	@echo "	    [PUSH_SWAP]     "
+	@echo "	    [CHECKER   PUSH_SWAP]"
 	@echo "\033[0m\n\n"
 
 print_norme : 
@@ -69,8 +69,6 @@ all: print_libft $(NAME)
 	fi
 
 $(NAME): $(COBJ)
-	@make -C libft/ all
-	@make -C push_swap_checker/ all
 	@echo $(SPACE)"\033[JCompilation des Objects \033[38;5;326mterminer\033[0m"
 	@echo $(SPACE)"Compilation de la library \033[34m" $(NAME) "\033[0m"
 	@gcc $(COBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
@@ -84,14 +82,10 @@ $(DOBJ)%.o : $(DSRC)%.c $(CHEADER)
 
 clean: print_libft
 	@rm -rf $(DOBJ)
-	@make -C libft/ clean
-	@make -C push_swap_checker/ clean
 	@echo $(SPACE)"Suppresion des \033[38;5;265mobjects\033[0m"
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C libft/ fclean
-	@make -C push_swap_checker/ fclean
 	@echo $(SPACE)"Suppresion de la library \033[38;5;265m"$(NAME) "\033[0m"
 
 re: fclean all

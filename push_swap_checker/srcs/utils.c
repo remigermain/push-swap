@@ -1,46 +1,47 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   utils.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 19:01:17 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/02/01 10:28:48 by rgermain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/01 19:24:08 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_checker.h"
 
-int	main_manager(int argc, char **argv)
+int ft_issort(int *stack_a, int len)
 {
-	t_pusw	*lst;
-	int	interactive;
+	int count;
 
-	interactive = 0;
-	if (argv[argc - 1][0] == 'v')
+	count = 0;
+	while (count < (len - 1))
 	{
-		argv[argc - 1] = NULL;
-		interactive = 1;
+		if (stack_a[count] < stack_a[count + 1])
+			count++;
+		else
+			return (-1);
 	}
-	if (check_arg(argv) == -1)
-		return (-1);
-	lst = ps_struct_init(argc - interactive, argv);
-	if (interactive == 1)
-		ps_algo2(lst);
-	else
-		ps_algo(lst);
-	ps_free(lst);
 	return (1);
 }
 
-int main(int argc, char **argv)
+void	ps_free(t_puswc *lst)
 {
-	int ret;
+	if (lst != NULL)
+	{
+		if (lst->stack_a != NULL)
+			free(lst->stack_a);
+		if (lst->stack_b != NULL)
+			free(lst->stack_b);
+		free(lst);
+	}	
+}
 
-	if (argc > 1)
-		if (main_manager(argc, argv) == -1)
-			ft_dprintf(2, "Error\n");
-	return (0);
+void	ps_error(t_puswc *lst)
+{
+	ps_free(lst);
+	ft_printf("%1@", "error", "push_swapp_checker", strerror(errno));
 }
