@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 16:13:06 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 18:02:17 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,7 +58,7 @@ void	ps_algo(t_pusw *lst)
 			rev_rotate_b(lst);
 		else if (ft_strcmp(line, "rrr") == 0)
 			rev_rotate_ab(lst);
-		else if (ft_strcmp(line, "break") == 0)
+		else if (ft_strcmp(line, "break") == 0 || ft_strcmp(line, "make") == 0)
 			break ;
 		else
 			nb--;

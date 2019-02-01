@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 10:35:20 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 15:51:44 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 17:30:35 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,7 @@ void	ps_putmin_max(t_pusw *lst)
 		if (lst->min > lst->stack_a[count])
 			lst->min = lst->stack_a[count];
 	}
+	lst->len_b = -1;
 }
 
 t_pusw	*ps_struct_init(int argc, char **argv)
