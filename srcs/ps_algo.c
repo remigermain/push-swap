@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 19:59:14 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 20:00:59 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,8 +30,8 @@ void		ps_algo(t_pusw *lst)
 
 	while (lst->len_a != -1)
 	{
-		ps_debugs(lst, 9, 0);
-		usleep(20000);
+//		ps_debugs(lst, 9, 0);
+//		usleep(20000);
 		tmp = lst->stack_a[lst->len_a];
 		rotate_a(lst);
 		while (lst->len_b != -1 && lst->stack_b[lst->len_b] > tmp)
@@ -41,8 +41,8 @@ void		ps_algo(t_pusw *lst)
 	}
 	while (lst->len_b != -1)
 		push_a(lst);
-	ps_debugs(lst, 9, 0);
-	ft_printf("\n nb = d'instruction = %d\n", lst->instruction);
+//	ps_debugs(lst, 9, 0);
+//	ft_printf("\n nb = d'instruction = %d\n", lst->instruction);
 }
 
 void	ps_algo2(t_pusw *lst)
