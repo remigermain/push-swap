@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/01/31 19:47:20 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/01 10:45:14 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -43,7 +43,7 @@ CHEADER = $(addprefix $(DHEADER),$(HEADER))
 CSRC_divers = $(addprefix $(D_DIVERS),$(SRC_divers))
 D_DIVERS = divers/
 SRC_divers = 		ft_countwchar.c ft_match.c ft_sort_integer_table.c ft_swap.c get_next_line.c \
-					ft_createtab.c
+					ft_createtab.c ft_freetabi.c
 
 
 CSRC_ISMETHODE = $(addprefix $(D_IS_METHODE),$(SRC_ISMETHODE))  

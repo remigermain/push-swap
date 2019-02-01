@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   push_swap.h                                      .::    .:/ .      .::   */
+/*   utils.c                                          .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 11:44:26 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/02/01 10:28:48 by rgermain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/01 11:41:55 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-#include "../libft/includes/libft.h"
+#include "push_swap.h"
 
-typedef struct	s_pusw
+void	ps_free(t_pusw *lst)
 {
-	int		*stack_a;
-	size_t		len_a;
-	int		*stack_b;
-	size_t		len_b;
-	int		min;
-	int		max;
-}				t_pusw;
+	if (lst != NULL)
+	{
+		if (lst->stack_a != NULL)
+			free(lst->stack_a);
+		if (lst->stack_b != NULL)
+			free(lst->stack_b);
+		free(lst);
+	}	
+}
 
-int		check_instruction(char **argv);
-void	ps_error(t_pusw *lst);
-t_pusw	*ps_struct_init(int argc, char **argv);
-void	ps_debug(t_pusw *lst);
-void	ps_free(t_pusw *lst);
-
-#endif
-
+void	ps_error(t_pusw *lst)
+{
+	ps_free(lst);
+	ft_printf("%1@", "error", "push_swapp", strerror(errno));
+}

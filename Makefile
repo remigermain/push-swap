@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/01 09:40:27 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/01 11:44:21 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -37,7 +37,8 @@ CHEADER = $(addprefix $(DHEADER),$(HEADER))
 # 								ALL  SCRS									   #
 # *****************************************************************************#
 
-SRC = main.c
+SRC = main.c check_instruction.c struct_init.c \
+		utils.c ps_debug.c
 
 COUNT = "1"
 SPACE = "            "
@@ -71,7 +72,7 @@ $(NAME): $(COBJ)
 	@make -C libft/ all
 	@echo $(SPACE)"\033[JCompilation des Objects \033[38;5;326mterminer\033[0m"
 	@echo $(SPACE)"Compilation de la library \033[34m" $(NAME) "\033[0m"
-	@gcc $? $(CFLAGS) $(LIBFT) -o $(NAME)
+	@gcc $(COBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 
 $(DOBJ)%.o : $(DSRC)%.c $(CHEADER)
 	@$(eval COUNT = "0")
@@ -94,7 +95,8 @@ re: fclean all
 
 norme : print_norme
 	@echo $(SPACE)"waiting ..."
-	@make -C libft/ norme
 	@norminette $(CSRC) $(CHEADER) | sed "s,Norme,${ESC}[38;5;326m&${ESC}[0m," | sed "s/Error/  Error/g" | sed "s,Error,${ESC}[31m&${ESC}[0m,"
 
+norme_all : print_norme
+	@make -C libft/ norme
 .PHONY: default all clean fclean re norme print_libft print_norme
