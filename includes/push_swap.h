@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 16:15:02 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 18:51:45 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,6 +21,7 @@ typedef struct	s_pusw
 	int		len_a;
 	int		*stack_b;
 	int		len_b;
+	int		instruction;
 	int		min;
 	int		max;
 }				t_pusw;
@@ -32,6 +33,7 @@ void	ps_debug(t_pusw *lst);
 void	ps_debugs(t_pusw *lst, int nb, int index);
 void	ps_free(t_pusw *lst);
 void	ps_algo(t_pusw *lst);
+void	ps_algo2(t_pusw *lst);
 int		ft_issort(int *tab, int len);
 
 

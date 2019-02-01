@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 10:35:20 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 17:30:35 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 18:40:03 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,6 +38,7 @@ t_pusw	*ps_struct_init(int argc, char **argv)
 	count = 0;
 	if (!(lst = (t_pusw*)malloc(sizeof(t_pusw))))
 		ps_error(lst);
+	lst->instruction = 0;
 	lst->len_a = argc - 2;
 	lst->len_b = -1;
 	if (!(lst->stack_a = (int*)malloc(sizeof(int) * argc - 1)))
