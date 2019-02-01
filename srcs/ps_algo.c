@@ -6,21 +6,35 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 15:06:24 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 16:13:06 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	check_final(t_pusw *lst)
+{
+	int ret = ft_issort(lst->stack_a, lst->len_a);
+	ft_printf("\n\n le tableaux est ");
+	if (ret == 1)
+		ft_printf("%{T_GREEN} [OK]%{T_EOC}");
+	else
+		ft_printf("%{T_RED} [KO]%{T_EOC}");
+	ft_printf("\n");
+}
+
 void	ps_algo(t_pusw *lst)
 {
 	char *line;
+	int nb = 1;
 
-	lst->len_a--;
-	lst->len_b--;
+	while (lst->len_b < lst->len_a)
+		push_b(lst);
 	while (1)
 	{
+		ps_debugs(lst, 9, 0);
+		ft_printf("\n nombre d'instruction = %d\n\33[K", nb++);
 		get_next_line(0, &line);
 		if (ft_strcmp(line, "sa") == 0)
 			swap_a(lst);
@@ -45,8 +59,10 @@ void	ps_algo(t_pusw *lst)
 		else if (ft_strcmp(line, "rrr") == 0)
 			rev_rotate_ab(lst);
 		else if (ft_strcmp(line, "break") == 0)
-			return ;
+			break ;
+		else
+			nb--;
 		free(line);
-		ps_debugs(lst, 4, 0);
 	}
+	check_final(lst);
 }

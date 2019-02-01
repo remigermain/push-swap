@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 10:35:20 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 13:11:50 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 15:51:44 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,6 @@ void	ps_putmin_max(t_pusw *lst)
 		if (lst->min > lst->stack_a[count])
 			lst->min = lst->stack_a[count];
 	}
-	ps_debug(lst);
 }
 
 t_pusw	*ps_struct_init(int argc, char **argv)
@@ -38,8 +37,8 @@ t_pusw	*ps_struct_init(int argc, char **argv)
 	count = 0;
 	if (!(lst = (t_pusw*)malloc(sizeof(t_pusw))))
 		ps_error(lst);
-	lst->len_a = argc - 1;
-	lst->len_b = 0;
+	lst->len_a = argc - 2;
+	lst->len_b = -1;
 	if (!(lst->stack_a = (int*)malloc(sizeof(int) * argc - 1)))
 		ps_error(lst);
 	if (!(lst->stack_b = (int*)malloc(sizeof(int) * argc - 1)))

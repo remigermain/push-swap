@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:19:05 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 15:00:52 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/01 16:14:52 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,13 +18,16 @@ void	ps_debugs(t_pusw *lst, int nb, int index)
 	int count;
 
 	count = 0;
+	if (index == 1)
+		ft_printf("\33[K\33[%dA", MAX(lst->len_a, lst->len_b) + 1 + nb);
+	ft_printf("\n\33%{T_LGREY}------------------------------ Debug ---------------%{T_EOC}\n\n");
 	if (lst->len_a > lst->len_b)
 		count = lst->len_a;
 	else
 		count = lst->len_b;
 	count++;
 	ft_printf("%15c%{T_BLUE}[   stack_a   ]%{T_YELLOW}      [   stack_b  ]%{T_EOC}\n", ft_intlen(count), lst->len_b);
-	ft_printf("%15c%{T_BLUE}[%13d]%{T_YELLOW}      [%12d]%{T_EOC}\n\n", ft_intlen(count), lst->len_a, lst->len_b);
+	ft_printf("%15c%{T_BLUE}[%13d]%{T_YELLOW}      [%12d]%{T_EOC}\n\n", ft_intlen(count), lst->len_a + 1, lst->len_b + 1);
 	while (--count >= 0)
 	{
 		ft_printf("%13d ", count);
@@ -38,8 +41,6 @@ void	ps_debugs(t_pusw *lst, int nb, int index)
 			ft_printf("|%12c|", ' ');
 		ft_printf("\n");
 	}
-	if (index == 1)
-		ft_printf("\33[K\33[%dA", MAX(lst->len_a, lst->len_b) + 1 + nb);
 }
 
 void	ps_debug(t_pusw *lst)
@@ -50,8 +51,8 @@ void	ps_debug(t_pusw *lst)
 	ft_printf("\n%{T_LGREY}------------------------------ Debug ---------------%{T_EOC}\n\n");
 	if (lst->stack_a != NULL)
 	{
-		count = MAX(lst->len_a, lst->len_b);
-		ft_printf("%15c%{T_BLUE}[   stack_a   ]%{T_YELLOW}      [   stack_b  ]%{T_EOC}\n\n", ft_intlen(count), lst->len_b);
+		count = MAX(lst->len_a, lst->len_b) + 1;
+		ft_printf("%15c%{T_BLUE}[   stack_a   ]%{T_YELLOW}      [   stack_b  ]%{T_EOC}\n\n", ft_intlen(count), lst->len_b + 1);
 		while (--count >= 0)
 		{
 			ft_printf("%13d |%{T_LGREY}%13d%{T_EOC}|      ", count, lst->stack_a[count]);
