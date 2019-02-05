@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/01 20:21:41 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/05 11:47:28 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -45,7 +45,7 @@ SPACE = "            "
 .DEFAULT_GOAL := all
 ESC = $(shell printf '\033')
 
-print_libft : 
+print_name : 
 	@printf	"\n\033[34m"
 	@echo "	    [PUSH_SWAP]     "
 	@echo "\033[0m\n\n"
@@ -63,7 +63,7 @@ print_norme :
 	@echo "\033[0m\n"
 
 
-all: print_libft $(NAME)
+all: print_name $(NAME)
 	@if [ $(COUNT) = "1" ]; then \
 		echo $(SPACE)"\033[34mNothing are changed !\033[0m"; \
 	fi
@@ -96,7 +96,7 @@ fclean: clean
 
 re: fclean all
 
-norme : print_norme
+norme : print_name print_norme
 	@echo $(SPACE)"waiting ..."
 	@norminette $(CSRC) $(CHEADER) | sed "s,Norme,${ESC}[38;5;326m&${ESC}[0m," | sed "s/Error/  Error/g" | sed "s,Error,${ESC}[31m&${ESC}[0m,"
 
