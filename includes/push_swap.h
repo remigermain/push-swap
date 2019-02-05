@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 09:48:36 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 12:24:34 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,6 +23,7 @@ typedef struct	s_pusw
 	int		len_b;
 	int		instruction;
 	int		min;
+	int		med;
 	int		max;
 }				t_pusw;
 
