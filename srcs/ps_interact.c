@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 18:14:36 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 18:16:58 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -75,7 +75,5 @@ void		ps_interact(t_pusw *lst)
 			instruct++;
 		free(line);
 	}
-	get_next_line(0, &line);
-	free(line);
 	ps_final_check(lst);
 }
