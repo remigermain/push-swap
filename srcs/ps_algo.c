@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:13:40 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 17:40:11 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,8 @@ void		ps_algo(t_pusw *lst)
 			split_stack(lst);
 		while (!ft_issort(lst))
 		{
+//			ps_debugs(lst, 9, 0);
+//			usleep(100000);
 			if (sort_stack(lst->stack_a, lst->len_a) == 1)
 				pivot = lst->len_a;
 			if (lst->stack_a[lst->len_a] > lst->stack_a[0])
@@ -73,4 +75,6 @@ void		ps_algo(t_pusw *lst)
 			pivot = ps_algo2(lst, pivot);
 		}
 	}
+//	ps_debugs(lst, 9, 0);
+//	usleep(100000);	
 }

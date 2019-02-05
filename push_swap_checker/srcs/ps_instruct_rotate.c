@@ -1,48 +1,54 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   utils.c                                          .::    .:/ .      .::   */
+/*   ps_algo.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/01 10:28:48 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:46:09 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/05 17:43:30 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap_checker.h"
 
-int		ft_issort(t_puswc *lst)
+void	rotate_a(t_puswc *lst)
 {
-	int count;
+	int len;
 
-	count = 0;
-	if (lst->len_b != -1)
-		return (-1);
-	while (count < (lst->len_a - 1))
+	len = lst->len_a;
+	if (lst->len_a > 0)
 	{
-		if (!(lst->stack_a[count] > lst->stack_a[count + 1]))
-			return (0);
-		count++;
+		while (len >= 0)
+		{
+			lst->stack_a[len + 1] = lst->stack_a[len];
+			len--;
+		}
+		lst->stack_a[0] = lst->stack_a[lst->len_a + 1];
 	}
-	return (1);
+	lst->instruction++;
 }
 
-void	ps_free(t_puswc *lst)
+void	rotate_b(t_puswc *lst)
 {
-	if (lst != NULL)
+	int len;
+
+	len = lst->len_b;
+	if (lst->len_b > 0)
 	{
-		if (lst->stack_a != NULL)
-			free(lst->stack_a);
-		if (lst->stack_b != NULL)
-			free(lst->stack_b);
-		free(lst);
+		while (len >= 0)
+		{
+			lst->stack_b[len + 1] = lst->stack_b[len];
+			len--;
+		}
+		lst->stack_b[0] = lst->stack_b[lst->len_b + 1];
 	}
+	lst->instruction++;
 }
 
-void	ps_error(t_puswc *lst)
+void	rotate_ab(t_puswc *lst)
 {
-	ps_free(lst);
-	ft_printf("%1@", "error", "push_swapp_checker", strerror(errno));
+	rotate_a(lst);
+	rotate_b(lst);
 }

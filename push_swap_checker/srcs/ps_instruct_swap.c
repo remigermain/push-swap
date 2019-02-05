@@ -1,48 +1,46 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   utils.c                                          .::    .:/ .      .::   */
+/*   ps_algo.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/01 10:28:48 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:46:09 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/05 17:43:15 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap_checker.h"
 
-int		ft_issort(t_puswc *lst)
+void	swap_a(t_puswc *lst)
 {
-	int count;
+	int	swap;
 
-	count = 0;
-	if (lst->len_b != -1)
-		return (-1);
-	while (count < (lst->len_a - 1))
+	if (lst->len_a > 0)
 	{
-		if (!(lst->stack_a[count] > lst->stack_a[count + 1]))
-			return (0);
-		count++;
+		swap = lst->stack_a[lst->len_a];
+		lst->stack_a[lst->len_a] = lst->stack_a[lst->len_a - 1];
+		lst->stack_a[lst->len_a - 1] = swap;
 	}
-	return (1);
+	lst->instruction++;
 }
 
-void	ps_free(t_puswc *lst)
+void	swap_b(t_puswc *lst)
 {
-	if (lst != NULL)
+	int	swap;
+
+	if (lst->len_b > 0)
 	{
-		if (lst->stack_a != NULL)
-			free(lst->stack_a);
-		if (lst->stack_b != NULL)
-			free(lst->stack_b);
-		free(lst);
+		swap = lst->stack_b[lst->len_b];
+		lst->stack_b[lst->len_b] = lst->stack_b[lst->len_b - 1];
+		lst->stack_b[lst->len_b - 1] = swap;
 	}
+	lst->instruction++;
 }
 
-void	ps_error(t_puswc *lst)
+void	swap_ab(t_puswc *lst)
 {
-	ps_free(lst);
-	ft_printf("%1@", "error", "push_swapp_checker", strerror(errno));
+	swap_a(lst);
+	swap_b(lst);
 }

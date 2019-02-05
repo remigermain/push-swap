@@ -6,14 +6,14 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 09:35:30 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 17:46:22 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap_checker.h"
 
-int	ps_checker2(t_puswc *lst, char *line)
+static int	ps_checker2(t_puswc *lst, char *line)
 {
 	if (ft_strcmp(line, "ra") == 0)
 		rotate_a(lst);
@@ -30,9 +30,9 @@ int	ps_checker2(t_puswc *lst, char *line)
 	else
 		return (-1);
 	return (1);
-}	
+}
 
-int		ps_checker(t_puswc *lst)
+int			ps_checker(t_puswc *lst)
 {
 	char	*line;
 

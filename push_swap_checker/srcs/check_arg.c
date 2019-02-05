@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:46:13 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 19:22:15 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 17:46:58 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,16 +38,15 @@ static int	ft_atol(char *str)
 	return (1);
 }
 
-int		check_arg(char **argv)
+int			check_arg(char **argv)
 {
 	size_t	count;
 	size_t	count2;
 	MINT	sign;
 
 	count = 0;
-	while (argv[++count] != NULL)
+	while (argv[++count] != NULL && (sign = 0))
 	{
-		sign = 0;
 		if (argv[count][0] == '-' || argv[count][0] == '+')
 			sign = 1;
 		if (ft_strlen(argv[count] + sign) == 0 ||
