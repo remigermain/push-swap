@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 10:35:20 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 12:30:21 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 16:02:08 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,9 +22,9 @@ void	ps_putmin_max(t_pusw *lst)
 	lst->min = lst->stack_a[0];
 	lst->max = lst->stack_a[0];
 	ft_sort_integer_table(lst->stack_b, lst->len_a + 1);
-	lst->min = lst->stack_b[0];
+	lst->max = lst->stack_b[0];
 	lst->med = lst->stack_b[(lst->len_a + 1) / 2];
-	lst->max = lst->stack_b[lst->len_a];
+	lst->min = lst->stack_b[lst->len_a];
 	lst->len_b = -1;
 }
 

@@ -1,46 +1,48 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   main.c                                           .::    .:/ .      .::   */
+/*   ps_algo.c                                        .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:06:58 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/05 17:20:32 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	main_manager(int argc, char **argv)
+void	swap_a(t_pusw *lst)
 {
-	t_pusw	*lst;
-	int		interact;
+	int	swap;
 
-	interact = 0;
-	if (argv[argc - 1][0] == 'v')
+	if (lst->len_a > 0)
 	{
-		argv[argc - 1] = NULL;
-		interact = 1;
+		swap = lst->stack_a[lst->len_a];
+		lst->stack_a[lst->len_a] = lst->stack_a[lst->len_a - 1];
+		lst->stack_a[lst->len_a - 1] = swap;
 	}
-	if (check_arg(argv) == -1)
-		return (-1);
-	lst = ps_struct_init(argc - interact, argv);
-	if (interact == 1)
-		ps_interact(lst);
-	else
-		ps_algo(lst);
-	ps_free(lst);
-	return (1);
+	lst->instruction++;
+	ft_printf("sa\n");
 }
 
-int			main(int argc, char **argv)
+void	swap_b(t_pusw *lst)
 {
-	int ret;
+	int	swap;
 
-	if (argc > 1)
-		if (main_manager(argc, argv) == -1)
-			ft_dprintf(2, "Error\n");
-	return (0);
+	if (lst->len_b > 0)
+	{
+		swap = lst->stack_b[lst->len_b];
+		lst->stack_b[lst->len_b] = lst->stack_b[lst->len_b - 1];
+		lst->stack_b[lst->len_b - 1] = swap;
+	}
+	lst->instruction++;
+	ft_printf("sb\n");
+}
+
+void	swap_ab(t_pusw *lst)
+{
+	swap_a(lst);
+	swap_b(lst);
 }

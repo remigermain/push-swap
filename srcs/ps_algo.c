@@ -6,14 +6,14 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 15:32:50 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 17:13:40 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		sort_stack(int *stack, int len)
+static int	sort_stack(int *stack, int len)
 {
 	while (len > 0)
 	{
@@ -24,103 +24,53 @@ int		sort_stack(int *stack, int len)
 	return (1);
 }
 
-void		ps_algo(t_pusw *lst)
+static void	split_stack(t_pusw *lst)
 {
-	int tri = 1;
-	int instruct = 1;
-
-
-	ps_debugs(lst, 9, 0);
-	while (ft_issort(lst) == -1)
+	while (lst->len_b < lst->len_a)
 	{
-		ps_debugs(lst, 9, 0);
-		ft_printf("\n nombre d'instruction = %d   tri = %d \n\33[K", instruct++, tri);
-		usleep(10000);
-		if (sort_stack(lst->stack_a, lst->len_a) == 1)
-			tri = lst->len_a;
-		if (lst->stack_a[lst->len_a] > lst->stack_a[0])
-		{
-			rotate_a(lst);
-			instruct++;
-		}
-		if (lst->len_b != -1 && lst->stack_b[lst->len_b] > lst->stack_a[lst->len_a])
-		{
-			push_a(lst);
-			instruct++;
-		}
-		if (lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
-		{
-			swap_a(lst);
-			instruct++;
-		}
-		else if (sort_stack(lst->stack_a, lst->len_a) == -1)
-		{
+		if (lst->stack_a[lst->len_a] <= lst->med)
 			push_b(lst);
-			instruct++;
-		}
-		else if (lst->stack_b[lst->len_b] < lst->stack_b[0])
-		{
-			rev_rotate_b(lst);
-			instruct++;
-		}
-		if (lst->len_a <= tri)
-		{
-			tri++;
-			while (lst->len_b != -1)
-			{
-				instruct++;
-				push_a(lst);
-			}
-		}
+		else
+			rotate_a(lst);
 	}
-	ps_debugs(lst, 9, 0);
-	ft_printf("\n nombre d'instruction = %d\n\33[K", instruct++);	
 }
 
-void	ps_algo2(t_pusw *lst)
+static int	ps_algo2(t_pusw *lst, int pivot)
 {
-	char	*line;
-	int		instruct;
-
-	instruct = 1;
-	while (1)
+	if (lst->len_a <= pivot)
 	{
-		ps_debugs(lst, 9, 0);
-		ft_printf("\n nombre d'instruction = %d\n\33[K", instruct++);
-		get_next_line(0, &line);
-		if (ft_strcmp(line, "sa") == 0)
-			swap_a(lst);
-		else if (ft_strcmp(line, "sb") == 0)
-			swap_b(lst);
-		else if (ft_strcmp(line, "ss") == 0)
-			swap_ab(lst);
-		else if (ft_strcmp(line, "pa") == 0)
+		pivot++;
+		while (lst->len_b != -1)
 			push_a(lst);
-		else if (ft_strcmp(line, "pb") == 0)
-			push_b(lst);
-		else if (ft_strcmp(line, "ra") == 0)
-			rotate_a(lst);
-		else if (ft_strcmp(line, "rb") == 0)
-			rotate_b(lst);
-		else if (ft_strcmp(line, "rr") == 0)
-			rotate_ab(lst);
-		else if (ft_strcmp(line, "rra") == 0)
-			rev_rotate_a(lst);
-		else if (ft_strcmp(line, "rrb") == 0)
-			rev_rotate_b(lst);
-		else if (ft_strcmp(line, "rrr") == 0)
-			rev_rotate_ab(lst);
-		else if (ft_strcmp(line, "break") == 0 || ft_strcmp(line, "make") == 0)
-			break ;
-		else
-			instruct--;
-		free(line);
 	}
-	int ret = ft_issort(lst);
-	ft_printf("\n\n le tableaux est ");
-	if (ret == 1 && lst->len_b == -1)
-		ft_printf("%{T_GREEN} [ok]%{T_EOC}");
-	else
-		ft_printf("%{T_RED} [ko]%{T_EOC}");
-	ft_printf("\n");
+	return (pivot);
+}
+
+void		ps_algo(t_pusw *lst)
+{
+	int pivot;
+
+	pivot = 0;
+	if (!ft_issort(lst))
+	{
+		if (lst->len_a > 4)
+			split_stack(lst);
+		while (!ft_issort(lst))
+		{
+			if (sort_stack(lst->stack_a, lst->len_a) == 1)
+				pivot = lst->len_a;
+			if (lst->stack_a[lst->len_a] > lst->stack_a[0])
+				rotate_a(lst);
+			if (lst->len_b != -1 &&
+					lst->stack_b[lst->len_b] > lst->stack_a[lst->len_a])
+				push_a(lst);
+			if (lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+				swap_a(lst);
+			else if (sort_stack(lst->stack_a, lst->len_a) == -1)
+				push_b(lst);
+			else if (lst->stack_b[lst->len_b] < lst->stack_b[0])
+				rev_rotate_b(lst);
+			pivot = ps_algo2(lst, pivot);
+		}
+	}
 }
