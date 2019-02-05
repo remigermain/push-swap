@@ -1,0 +1,32 @@
+#!/bin/bash
+
+WORSE="0"
+BEST="16777216"
+MED="0"
+COUNTER="0"
+SUM="0"
+
+if [[ $# -gt 0 ]]
+then
+	while true
+	do
+		ARG=`ruby -e "puts (0..$1).to_a.shuffle.join(' ')"`
+		TMP=`./push_swap $ARG | wc -l | sed 's/ //g'`
+		(( COUNTER += 1 ))
+		(( SUM += ${TMP} ))
+		(( MED = ${SUM} / ${COUNTER} ))
+		if [[ ${TMP} -gt ${WORSE} ]]
+		then
+			WORSE=${TMP}
+		fi
+		if [[ ${TMP} -lt ${BEST} ]]
+		then
+			BEST=${TMP}
+		fi
+		echo -e "Worst = \033[31;1m${WORSE}\033[0m instructions"
+		echo -e "Average = \033[33;1m${MED}\033[0m instructions"
+		echo -e "Best = \033[36;1m${BEST}\033[0m instructions\r\033[2A\c"
+	done
+else
+	echo "Parameter needed for the number of elements in the stack."
+fi

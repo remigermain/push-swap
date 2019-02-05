@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 12:34:07 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 15:32:50 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,32 +28,41 @@ void		ps_algo(t_pusw *lst)
 {
 	int tri = 1;
 	int instruct = 1;
-	while (lst->len_a > lst->len_b)
-	{
-		if (lst->stack_a[lst->len_a] <= lst->med)
-			push_b(lst);
-		else
-			rotate_a(lst);
-		instruct++;
-	}
-	
+
+
+	ps_debugs(lst, 9, 0);
 	while (ft_issort(lst) == -1)
 	{
-//		ps_debugs(lst, 9, 0);
-	//	ft_printf("\n nombre d'instruction = %d   tri = %d \n\33[K", instruct++, tri);
-	//	usleep(10000);
-		if (lst->stack_a[lst->len_a] > lst->stack_a[0])
-			rotate_a(lst);
-		if (lst->len_b != -1 && lst->stack_b[lst->len_b] > lst->stack_a[lst->len_a])
-			push_a(lst);
-		if (lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
-			swap_a(lst);
-		else if (sort_stack(lst->stack_a, lst->len_a) == -1)
-			push_b(lst);
-		else if (sort_stack(lst->stack_a, lst->len_a) == 1)
+		ps_debugs(lst, 9, 0);
+		ft_printf("\n nombre d'instruction = %d   tri = %d \n\33[K", instruct++, tri);
+		usleep(10000);
+		if (sort_stack(lst->stack_a, lst->len_a) == 1)
 			tri = lst->len_a;
+		if (lst->stack_a[lst->len_a] > lst->stack_a[0])
+		{
+			rotate_a(lst);
+			instruct++;
+		}
+		if (lst->len_b != -1 && lst->stack_b[lst->len_b] > lst->stack_a[lst->len_a])
+		{
+			push_a(lst);
+			instruct++;
+		}
+		if (lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+		{
+			swap_a(lst);
+			instruct++;
+		}
+		else if (sort_stack(lst->stack_a, lst->len_a) == -1)
+		{
+			push_b(lst);
+			instruct++;
+		}
 		else if (lst->stack_b[lst->len_b] < lst->stack_b[0])
+		{
 			rev_rotate_b(lst);
+			instruct++;
+		}
 		if (lst->len_a <= tri)
 		{
 			tri++;
@@ -64,8 +73,8 @@ void		ps_algo(t_pusw *lst)
 			}
 		}
 	}
-//	ps_debugs(lst, 9, 0);
-//	ft_printf("\n nombre d'instruction = %d\n\33[K", instruct++);	
+	ps_debugs(lst, 9, 0);
+	ft_printf("\n nombre d'instruction = %d\n\33[K", instruct++);	
 }
 
 void	ps_algo2(t_pusw *lst)
@@ -110,8 +119,8 @@ void	ps_algo2(t_pusw *lst)
 	int ret = ft_issort(lst);
 	ft_printf("\n\n le tableaux est ");
 	if (ret == 1 && lst->len_b == -1)
-		ft_printf("%{t_green} [ok]%{t_eoc}");
+		ft_printf("%{T_GREEN} [ok]%{T_EOC}");
 	else
-		ft_printf("%{t_red} [ko]%{t_eoc}");
+		ft_printf("%{T_RED} [ko]%{T_EOC}");
 	ft_printf("\n");
 }
