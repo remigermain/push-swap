@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:19:05 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 18:05:48 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 10:55:12 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ void	ps_debugs(t_pusw *lst, int nb, int index)
 		count = lst->len_b;
 	count++;
 	ft_printf("%15c%{T_BLUE}[   stack_a   ]%{T_YELLOW}       [   stack_b  ]%{T_EOC}\n", ft_intlen(count), lst->len_b);
-	ft_printf("%15c%{T_BLUE}[%13d]%{T_YELLOW}       [%12d]%{T_EOC}\n\n", ft_intlen(count), lst->len_a + 1, lst->len_b + 1);
+	ft_printf("%15c%{T_BLUE}[%13d]%{T_YELLOW}       [%12d]%{T_EOC}\n\n", ft_intlen(count), lst->len_a, lst->len_b);
 	while (--count >= 0)
 	{
 		ft_printf("%13d ", count);

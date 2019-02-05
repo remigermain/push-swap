@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:46:13 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 11:55:17 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 10:03:48 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,7 +30,7 @@ static int	ft_atol(char *str)
 			neg = -1;
 		count++;
 	}
-	while (str[count] >= '0' && str[count] <= '9')
+	while (str[count] >= '0' && str[count] <= '9' && nb <= 2147483648)
 		nb = ((nb * 10) + (str[count++] - '0'));
 	nb *= neg;
 	if (nb < -2147483648 || nb > 2147483647)

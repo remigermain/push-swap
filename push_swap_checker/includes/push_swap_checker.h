@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 19:21:41 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 09:35:05 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,7 @@ void	ps_debug(t_puswc *lst);
 void	ps_debugs(t_puswc *lst, int nb, int index);
 void	ps_free(t_puswc *lst);
 int		ps_checker(t_puswc *lst);
-int		ft_issort(int *tab, int len);
+int		ft_issort(t_puswc *lst);
 void	swap_a(t_puswc *lst);
 void	swap_b(t_puswc *lst);
 void	swap_ab(t_puswc *lst);

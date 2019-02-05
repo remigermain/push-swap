@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 18:51:45 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 09:48:36 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,7 +34,7 @@ void	ps_debugs(t_pusw *lst, int nb, int index);
 void	ps_free(t_pusw *lst);
 void	ps_algo(t_pusw *lst);
 void	ps_algo2(t_pusw *lst);
-int		ft_issort(int *tab, int len);
+int		ft_issort(t_pusw *lst);
 
 
 

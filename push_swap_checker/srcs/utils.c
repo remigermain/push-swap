@@ -6,27 +6,27 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 10:28:48 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 20:19:06 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 09:34:43 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap_checker.h"
 
-int ft_issort(int *stack_a, int len)
+int ft_issort(t_puswc *lst)
 {
 	int count;
 
 	count = 0;
-	while (count < (len - 1))
+	if (lst->len_b != -1)
+		return (-1);
+	while (count < (lst->len_a - 1))
 	{
-		if (stack_a[count] > stack_a[count + 1])
+		if (lst->stack_a[count] > lst->stack_a[count + 1])
 			count++;
 		else
 			return (-1);
 	}
-	if (lst->len_b != -1)
-		return (-1);
 	return (1);
 }
 

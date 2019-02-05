@@ -6,43 +6,56 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 20:00:59 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 11:45:38 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_final(t_pusw *lst)
+int		sort_stack(int *stack, int len)
 {
-	int ret = ft_issort(lst->stack_a, lst->len_a);
-	ft_printf("\n\n le tableaux est ");
-	if (ret == 1 && lst->len_b == -1)
-		ft_printf("%{T_GREEN} [OK]%{T_EOC}");
-	else
-		ft_printf("%{T_RED} [KO]%{T_EOC}");
-	ft_printf("\n");
+	while (len > 0)
+	{
+		if (stack[len] > stack[len - 1])
+			return (-1);
+		len--;
+	}
+	return (1);
 }
 
 void		ps_algo(t_pusw *lst)
 {
-	int tmp;
-
-	while (lst->len_a != -1)
+	int tri = 1;
+	int instruct = 1;
+	
+	while (ft_issort(lst) == -1)
 	{
-//		ps_debugs(lst, 9, 0);
-//		usleep(20000);
-		tmp = lst->stack_a[lst->len_a];
-		rotate_a(lst);
-		while (lst->len_b != -1 && lst->stack_b[lst->len_b] > tmp)
+		ps_debugs(lst, 9, 0);
+		ft_printf("\n nombre d'instruction = %d\n\33[K", instruct++);
+		usleep(500);
+		if (lst->stack_a[lst->len_a] > lst->stack_a[0])
+			rotate_a(lst);
+		if (lst->len_b != -1 && lst->stack_b[lst->len_b] > lst->stack_a[lst->len_a])
 			push_a(lst);
-		rev_rotate_a(lst);
-		push_b(lst);
+		if (lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+			swap_a(lst);
+		else
+			push_b(lst);
+		if (lst->stack_b[lst->len_b] < lst->stack_b[0])
+			rev_rotate_b(lst);
+		if (lst->len_a <= tri)
+		{
+			tri++;
+			while (lst->len_b != -1)
+			{
+				instruct++;
+				push_a(lst);
+			}
+		}
 	}
-	while (lst->len_b != -1)
-		push_a(lst);
-//	ps_debugs(lst, 9, 0);
-//	ft_printf("\n nb = d'instruction = %d\n", lst->instruction);
+	ps_debugs(lst, 9, 0);
+	ft_printf("\n nombre d'instruction = %d\n\33[K", instruct++);	
 }
 
 void	ps_algo2(t_pusw *lst)
@@ -84,5 +97,11 @@ void	ps_algo2(t_pusw *lst)
 			instruct--;
 		free(line);
 	}
-	check_final(lst);
+	int ret = ft_issort(lst);
+	ft_printf("\n\n le tableaux est ");
+	if (ret == 1 && lst->len_b == -1)
+		ft_printf("%{t_green} [ok]%{t_eoc}");
+	else
+		ft_printf("%{t_red} [ko]%{t_eoc}");
+	ft_printf("\n");
 }
