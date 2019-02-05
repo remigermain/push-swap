@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:46:22 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 17:55:54 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,7 @@ int			ps_checker(t_puswc *lst)
 			if (ps_checker2(lst, line) == -1)
 			{
 				free(line);
-				return (-1);
+				return (0);
 			}
 		}
 		free(line);

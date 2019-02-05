@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/05 17:21:58 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/05 17:54:18 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -46,7 +46,7 @@ COUNT = "1"
 SPACE = "            "
 .DEFAULT_GOAL := all
 ESC = $(shell printf '\033')
-
+	
 print_name : 
 	@printf	"\n\033[34m"
 	@echo "	    [PUSH_SWAP]     "
@@ -66,13 +66,13 @@ print_norme :
 
 
 all: print_name $(NAME)
+	@make -C libft/ all
+	@make -C push_swap_checker/ all
 	@if [ $(COUNT) = "1" ]; then \
 		echo $(SPACE)"\033[34mNothing are changed !\033[0m"; \
 	fi
 
 $(NAME): $(COBJ)
-	@make -C libft/ all
-	@make -C push_swap_checker/ all
 	@echo $(SPACE)"\033[JCompilation des Objects \033[38;5;326mterminer\033[0m"
 	@echo $(SPACE)"Compilation de la library \033[34m" $(NAME) "\033[0m"
 	@gcc $(COBJ) $(CFLAGS) $(LIBFT) -o $(NAME)

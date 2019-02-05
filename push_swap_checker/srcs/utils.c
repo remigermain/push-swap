@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 10:28:48 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:46:09 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 17:56:49 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,10 +19,10 @@ int		ft_issort(t_puswc *lst)
 
 	count = 0;
 	if (lst->len_b != -1)
-		return (-1);
+		return (0);
 	while (count < (lst->len_a - 1))
 	{
-		if (!(lst->stack_a[count] > lst->stack_a[count + 1]))
+		if (lst->stack_a[count] > lst->stack_a[count + 1])
 			return (0);
 		count++;
 	}
