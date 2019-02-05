@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:35:32 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 18:14:36 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,10 +67,15 @@ void		ps_interact(t_pusw *lst)
 		else if (!ft_strcmp(line, "pa") && (instruct++))
 			push_a(lst);
 		else if (!ft_strcmp(line, "break") || !ft_strcmp(line, "make"))
+		{
+			free(line);
 			break ;
+		}
 		else if (ps_interact2(lst, line))
 			instruct++;
 		free(line);
 	}
+	get_next_line(0, &line);
+	free(line);
 	ps_final_check(lst);
 }

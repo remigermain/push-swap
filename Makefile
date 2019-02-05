@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/05 17:54:18 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/05 18:13:00 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -73,15 +73,17 @@ all: print_name $(NAME)
 	fi
 
 $(NAME): $(COBJ)
+	@make -C libft/ all
+	@make -C push_swap_checker/ all
 	@echo $(SPACE)"\033[JCompilation des Objects \033[38;5;326mterminer\033[0m"
 	@echo $(SPACE)"Compilation de la library \033[34m" $(NAME) "\033[0m"
-	@gcc $(COBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
+	@gcc $(COBJ) -g $(CFLAGS) $(LIBFT) -o $(NAME)
 
 $(DOBJ)%.o : $(DSRC)%.c $(CHEADER)
 	@$(eval COUNT = "0")
 	@mkdir -p $(DOBJ)
 	@mkdir -p $(addprefix $(DOBJ), $(ALL_D))
-	@gcc $(CFLAGS) $(INCLUDE) -c $< -o $@
+	@gcc $(CFLAGS) $(INCLUDE) -g -c $< -o $@
 	@echo $(SPACE)"compilation de la fonction \033[38;5;326m"$< "\033[0m\033[K\033[1A"
 
 clean: print_libft
