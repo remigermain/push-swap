@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:24:21 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 09:52:50 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,7 +35,7 @@ void			ps_debugs(t_pusw *lst, int nb, int index);
 void			ps_free(t_pusw *lst);
 void			ps_algo(t_pusw *lst);
 int				ft_issort(t_pusw *lst);
-void			ps_interact(t_pusw *lst);
+void			ps_interact(t_pusw *lst, size_t instruction);
 void			swap_a(t_pusw *lst);
 void			swap_b(t_pusw *lst);
 void			swap_ab(t_pusw *lst);

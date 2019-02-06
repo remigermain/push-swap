@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 18:16:58 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 09:53:26 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,16 +47,14 @@ static int	ps_interact2(t_pusw *lst, char *line)
 	return (1);
 }
 
-void		ps_interact(t_pusw *lst)
+void		ps_interact(t_pusw *lst, size_t instruct)
 {
 	char	*line;
-	int		instruct;
 
-	instruct = 0;
 	while (1)
 	{
 		ps_debugs(lst, 9, 0);
-		ft_printf("\n nombre d'instruction = %d\n\33[K", instruct);
+		ft_printf("\n nombre d'instruction = %zu\n\33[K", instruct);
 		get_next_line(0, &line);
 		if (!ft_strcmp(line, "sa") && (instruct++))
 			swap_a(lst);

@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:06:58 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 09:52:40 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,11 +24,11 @@ static int	main_manager(int argc, char **argv)
 		argv[argc - 1] = NULL;
 		interact = 1;
 	}
-	if (check_arg(argv) == -1)
-		return (-1);
+	if (!check_arg(argv))
+		return (0);
 	lst = ps_struct_init(argc - interact, argv);
 	if (interact == 1)
-		ps_interact(lst);
+		ps_interact(lst, 0);
 	else
 		ps_algo(lst);
 	ps_free(lst);
@@ -40,7 +40,7 @@ int			main(int argc, char **argv)
 	int ret;
 
 	if (argc > 1)
-		if (main_manager(argc, argv) == -1)
+		if (main_manager(argc, argv))
 			ft_dprintf(2, "Error\n");
 	return (0);
 }
