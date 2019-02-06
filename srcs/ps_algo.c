@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 16:11:33 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 16:43:38 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ static int	sort_stack(int *stack, int len)
 	while (len > 0)
 	{
 		if (stack[len] > stack[len - 1])
-			return (-1);
+			return (0);
 		len--;
 	}
 	return (1);
@@ -79,6 +79,14 @@ static void	split_stack(t_pusw *lst)
 			push_b(lst);
 			sens = find_sens(lst, 1);
 		}
+		else if (sens == 1 && lst->len_b > 0 && (
+					lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1] ||
+					lst->stack_b[lst->len_b] > lst->stack_b[0]))
+			rotate_ab(lst);
+		else if (sens == 1 && lst->len_b > 0  && (
+					lst->stack_b[lst->len_b] > lst->stack_b[lst->len_b - 1] ||
+					lst->stack_b[lst->len_b] < lst->stack_b[0]))
+			rev_rotate_ab(lst);
 		else if (sens == 1)
 			rotate_a(lst);
 		else
@@ -111,8 +119,10 @@ void		ps_algo(t_pusw *lst)
 		while (!ft_issort(lst))
 		{
 			visu(lst);
-			if (sort_stack(lst->stack_a, lst->len_a) == 1)
-				pivot = lst->len_a;
+			pivot = 0;
+			while (!sort_stack(lst->stack_a, lst->len_a - pivot))
+				pivot++;
+			pivot = lst->len_a - pivot;
 			if (lst->stack_a[lst->len_a] > lst->stack_a[0])
 				rotate_a(lst);
 			if (lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
@@ -120,7 +130,7 @@ void		ps_algo(t_pusw *lst)
 			else if (lst->len_b != -1 &&
 					lst->stack_b[lst->len_b] > lst->stack_a[lst->len_a])
 				push_a(lst);
-			else if (sort_stack(lst->stack_a, lst->len_a) == -1)
+			else if (!sort_stack(lst->stack_a, lst->len_a))
 				push_b(lst);
 			else if (lst->stack_b[lst->len_b] < lst->stack_b[0])
 				rev_rotate_b(lst);
