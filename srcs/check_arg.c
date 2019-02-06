@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:46:13 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 09:51:37 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 09:54:48 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,7 @@ static int	check_doublon(char **argv)
 		count2 = count;
 		while (argv[++count2] != '\0')
 		{
-			if (ft_strcmp(argv[count], argv[count2]) == 0)
+			if (!ft_strcmp(argv[count], argv[count2]))
 				return (0);
 		}
 	}

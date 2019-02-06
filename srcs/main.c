@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 09:52:40 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 09:55:36 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,7 +40,7 @@ int			main(int argc, char **argv)
 	int ret;
 
 	if (argc > 1)
-		if (main_manager(argc, argv))
+		if (!main_manager(argc, argv))
 			ft_dprintf(2, "Error\n");
 	return (0);
 }
