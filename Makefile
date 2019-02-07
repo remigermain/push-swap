@@ -6,12 +6,13 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/07 11:18:05 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/07 13:00:07 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = push_swap
+TYPE = "de l'executable"
 
 #CFLAGS = -Wall -Werror -Wextra
 
@@ -46,7 +47,6 @@ COUNT = "1"
 SPACE = "                    "
 .DEFAULT_GOAL := all
 ESC = $(shell printf '\033')
-#	@printf	"\n\033[47m  \033[0m\n"
 
 print_name : 
 	@printf "\n----------------------------------------------------------------------\n\n\033[37m"
@@ -68,13 +68,21 @@ all: LIBFT_M PSCHECKER_M print_name $(NAME)
 
 LIBFT_M : 
 	@make -C libft/ all
-
+LIBFT_C : 
+	@make -C libft/ clean
+LIBFT_FC : 
+	@make -C libft/ fclean
 PSCHECKER_M :
 	@make -C push_swap_checker/ all
+PSCHECKER_C :
+	@make -C push_swap_checker/ clean
+PSCHECKER_FC :
+	@make -C push_swap_checker/ fclean
+
 
 $(NAME): $(COBJ)
 	@echo $(SPACE)"\033[JCompilation des Objects \033[38;5;326mterminer\033[0m"
-	@echo $(SPACE)"Compilation de la library \033[34m" $(NAME) "\033[0m"
+	@echo $(SPACE)"Compilation" $(TYPE) "\033[34m" $(NAME) "\033[0m"
 	@gcc $(COBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 
 $(DOBJ)%.o : $(DSRC)%.c $(CHEADER)
@@ -84,31 +92,27 @@ $(DOBJ)%.o : $(DSRC)%.c $(CHEADER)
 	@gcc $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@echo $(SPACE)"compilation de la fonction \033[38;5;326m"$< "\033[0m\033[K\033[1A"
 
-clean: print_name
+clean: LIBFT_C PSCHECKER_C print_name
 	@rm -rf $(DOBJ)
-	@make -C libft/ clean
-	@make -C push_swap_checker/ clean
 	@echo $(SPACE)"Suppresion des \033[38;5;265mobjects\033[0m"
 
 clean_f: print_name
 	@rm -rf $(DOBJ)
 	@echo $(SPACE)"Suppresion des \033[38;5;265mobjects\033[0m"
 
-fclean: clean_f
+fclean: LIBFT_FC PSCHECKER_FC clean_f
 	@rm -f $(NAME)
-	@make -C libft/ fclean
-	@make -C push_swap_checker/ fclean
-	@echo $(SPACE)"Suppresion de la library \033[38;5;265m"$(NAME) "\033[0m"
+	@echo $(SPACE)"Suppresion "$(TYPE) "\033[38;5;265m"$(NAME) "\033[0m"
 
 re: fclean all
 
-norme : print_name print_norme
+norme : print_norme
 	@echo $(SPACE)"waiting \033[5m ...\033[0m"
 	@sleep 2
 	@echo "\033[0m\033[K\033[1A"$(SPACE) $(SPACE) $(SPACE)
 	@norminette $(CSRC) $(CHEADER) | sed "s,Norme,${ESC}[38;5;326m&${ESC}[0m," | sed "s/Error/  Error/g" | sed "s,Error,${ESC}[31m&${ESC}[0m,"
 
-norme_all : norme print_norme
+normeall : norme print_norme
 	@make -C libft/ norme
 	@make -C push_swap_checker/ norme
 .PHONY: default all clean fclean re norme print_libft print_norme

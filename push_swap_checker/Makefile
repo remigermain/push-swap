@@ -6,12 +6,13 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/07 10:57:02 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/07 12:59:08 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
 NAME = checker
+TYPE = "de l'executable"
 
 #CFLAGS = -Wall -Werror -Wextra
 
@@ -66,7 +67,7 @@ all: print_name $(NAME)
 
 $(NAME): $(COBJ)
 	@echo $(SPACE)"\033[JCompilation des Objects \033[38;5;326mterminer\033[0m"
-	@echo $(SPACE)"Compilation de la library \033[34m" $(NAME) "\033[0m"
+	@echo $(SPACE)"Compilation "$(TYPE)" \033[34m" $(NAME) "\033[0m"
 	@gcc $(COBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 
 $(DOBJ)%.o : $(DSRC)%.c $(CHEADER)
@@ -82,16 +83,14 @@ clean: print_name
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo $(SPACE)"Suppresion de la library \033[38;5;265m"$(NAME) "\033[0m"
+	@echo $(SPACE)"Suppresion "$(TYPE)" \033[38;5;265m"$(NAME) "\033[0m"
 
 re: fclean all
 
-norme : print_name print_norme
+norme : print_norme
 	@echo $(SPACE)"waiting \033[5m ...\033[0m"
 	@sleep 2
 	@echo "\033[0m\033[K\033[1A"$(SPACE) $(SPACE) $(SPACE)
 	@norminette $(CSRC) $(CHEADER) | sed "s,Norme,${ESC}[38;5;326m&${ESC}[0m," | sed "s/Error/  Error/g" | sed "s,Error,${ESC}[31m&${ESC}[0m,"
 
-norme_all : print_norme
-	@make -C libft/ norme
 .PHONY: default all clean fclean re norme print_libft print_norme
