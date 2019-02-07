@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 16:44:19 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 17:17:13 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -135,6 +135,14 @@ static int	find_nb(int *stack, int len, int nb)
 	return (0);
 }
 
+static int	sort_realstack_a(t_pusw *lst)
+{
+	if ((find_min(lst->stack_a, lst->len_a) > find_max(lst->stack_b, lst->len_b)) && sort_stack_a(lst))
+		return (1);
+	return (0);
+}
+
+
 static MINT	find_sens(t_pusw *lst, MINT index)
 {
 	int		count;
@@ -188,34 +196,15 @@ static void	split_stack(t_pusw *lst)
 			push_b(lst);
 			sens = find_sens(lst, 1);
 		}
+		else if (sens == 1 && (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1]))
+			rotate_ab(lst);
+		else if (sens == 0 && lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[0])
+			rev_rotate_ab(lst);
 		else if (sens == 1)
-		{
-			if (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-				rotate_ab(lst);
-			else
-				rotate_a(lst);
-		}
+			rotate_a(lst);
 		else
-		{
-			if (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[0])
-				rev_rotate_ab(lst);
-			else
-				rev_rotate_a(lst);
-		}
+			rev_rotate_a(lst);
 	}
-}
-
-static int	ps_algo2(t_pusw *lst, int pivot)
-{
-	if (lst->len_a <= pivot)
-	{
-		pivot++;
-		while (lst->len_b != -1)
-		{
-			push_a(lst);
-		}
-	}
-	return (pivot);
 }
 
 void		ps_algo(t_pusw *lst)
@@ -227,29 +216,40 @@ void		ps_algo(t_pusw *lst)
 	pivot = 0;
 	if (!ft_issort(lst))
 	{
-		if (lst->len_a > 4)
-			split_stack(lst);
+		split_stack(lst);
 		visu(lst);
 		lst->med = find_med(lst->stack_a, lst->len_a);
-			sens = find_sens(lst, 1);
-		while (lst->len_a != 0)
+		sens = find_sens(lst, 1);
+		while (!sort_realstack_a(lst))
 		{
 			visu(lst);
-			if (lst->stack_a[lst->len_a] <= lst->med)
+			if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+					lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+				swap_ab(lst);
+			else if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+				swap_a(lst);
+			else if (lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+				swap_b(lst);
+			else if (lst->stack_a[lst->len_a] <= lst->med)
 			{
 				push_b(lst);
 				lst->med = find_med(lst->stack_a, lst->len_a);
 				sens = find_sens(lst, 1);
 			}
+			else if (sens == 1 && (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1]))
+				rotate_ab(lst);
+			else if (sens == 0 && lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[0])
+				rev_rotate_ab(lst);
 			else if (sens == 1)
 				rotate_a(lst);
 			else
 				rev_rotate_a(lst);
 		}
 		visu(lst);
+
+
 		max = find_max(lst->stack_b, lst->len_b);
-		sens = find_nb(lst->stack_b, lst->len_b, max);
-		if (sens > (lst->len_b / 2))
+		if ((sens = find_nb(lst->stack_b, lst->len_b, max)) > (lst->len_b / 2))
 			sens = 1;
 		else
 			sens = 0;
@@ -260,8 +260,7 @@ void		ps_algo(t_pusw *lst)
 			{
 				push_a(lst);
 				max = find_max(lst->stack_b, lst->len_b);
-				sens = find_nb(lst->stack_b, lst->len_b, max);
-				if (sens > (lst->len_b / 2))
+				if ((sens = find_nb(lst->stack_b, lst->len_b, max)) > (lst->len_b / 2))
 					sens = 1;
 				else
 					sens = 0;
