@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 13:32:49 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 13:46:28 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,6 @@ void	swap_a(t_puswc *lst)
 		lst->stack_a[lst->len_a - 1] = swap;
 	}
 	lst->instruction++;
-	ft_printf("sa\n");
 }
 
 void	swap_b(t_puswc *lst)
@@ -38,7 +37,6 @@ void	swap_b(t_puswc *lst)
 		lst->stack_b[lst->len_b - 1] = swap;
 	}
 	lst->instruction++;
-	ft_printf("sb\n");
 }
 
 void	swap_ab(t_puswc *lst)
@@ -58,5 +56,4 @@ void	swap_ab(t_puswc *lst)
 		lst->stack_b[lst->len_b - 1] = swap;
 	}
 	lst->instruction++;
-	ft_printf("ss\n");
 }

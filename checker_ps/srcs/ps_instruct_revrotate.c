@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 13:33:16 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 13:45:33 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,7 +28,6 @@ void	rev_rotate_a(t_puswc *lst)
 		}
 	}
 	lst->instruction++;
-	ft_printf("rra\n");
 }
 
 void	rev_rotate_b(t_puswc *lst)
@@ -46,7 +45,6 @@ void	rev_rotate_b(t_puswc *lst)
 		}
 	}
 	lst->instruction++;
-	ft_printf("rrb\n");
 }
 
 void	rev_rotate_ab(t_puswc *lst)
@@ -74,5 +72,4 @@ void	rev_rotate_ab(t_puswc *lst)
 		}
 	}
 	lst->instruction++;
-	ft_printf("rrr\n");
 }

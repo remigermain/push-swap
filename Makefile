@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/07 13:40:39 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/07 14:16:11 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -22,6 +22,9 @@ LIBFT_FC :
 	@make -C libft/ fclean
 LIBFT_N : 
 	@make -C libft/ norme
+LIBFT_R : 
+	@make -C libft/ re
+
 PSCHECKER_M :
 	@make -C checker_ps/ all
 PSCHECKER_C :
@@ -30,6 +33,8 @@ PSCHECKER_FC :
 	@make -C checker_ps/ fclean
 PSCHECKER_N :
 	@make -C checker_ps/ norme
+PSCHECKER_R :
+	@make -C checker_ps/ re
 
 #CFLAGS = -Wall -Werror -Wextra
 
@@ -107,7 +112,13 @@ fclean: LIBFT_FC PSCHECKER_FC clean_f
 	@rm -f $(NAME)
 	@echo $(SPACE)"Suppresion "$(TYPE) "\033[38;5;265m"$(NAME) "\033[0m"
 
-re: fclean all
+re_clean:
+	@rm -rf $(DOBJ)
+	@echo $(SPACE)"Suppresion des \033[38;5;265mobjects\033[0m"
+	@rm -f $(NAME)
+	@echo $(SPACE)"Suppresion "$(TYPE) "\033[38;5;265m"$(NAME) "\033[0m"
+
+re: LIBFT_R PSCHECKER_R re_clean print_name $(NAME)
 
 norme : print_norme
 	@echo $(SPACE)"waiting \033[5m ...\033[0m"
