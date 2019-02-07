@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 14:07:37 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 14:38:01 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,20 @@ static int	sort_stack_a(t_pusw *lst)
 		len--;
 	}
 	return (1);
+}
+
+static int	find_min(int *stack, int len)
+{
+	int	min;
+
+	min = 2147483647;
+	while (len >= 0)
+	{
+		if (stack[len] < min)
+			min = stack[len];
+		len--;
+	}
+	return (min);
 }
 
 static int	find_max(int *stack, int len)
@@ -156,7 +170,12 @@ void		ps_algo(t_pusw *lst)
 			sens_b = (find_sens(lst, 2) == 1 ? 0 : 1);
 			if (sort_stack_a(lst))
 				pivot = lst->len_a;
-			if (((lst->len_a > 0 && lst->stack_a[lst->len_a - 1] < lst->stack_a[lst->len_a]) &&
+			if (sort_stack_a(lst) && !sort_stack_b(lst) && lst->stack_b[lst->len_b] == find_max(lst->stack_b, lst->len_b))
+				push_a(lst);
+			else if (sort_stack_b(lst) && !sort_stack_a(lst) && lst->stack_a[lst->len_a] == find_min(lst->stack_a, lst->len_a))
+				push_b(lst);
+	
+			else if (((lst->len_a > 0 && lst->stack_a[lst->len_a - 1] < lst->stack_a[lst->len_a]) &&
 				(lst->len_b > 0 && lst->stack_b[lst->len_b - 1] > lst->stack_b[lst->len_b])) &&
 					!sort_stack_a(lst) && !sort_stack_b(lst))
 				swap_ab(lst);
@@ -186,10 +205,8 @@ void		ps_algo(t_pusw *lst)
 			else if ((lst->len_b > 0 && lst->stack_b[0] < lst->stack_b[lst->len_b])
 					&& !sort_stack_b(lst))
 				rev_rotate_b(lst);
-			else if (sort_stack_a(lst) && lst->stack_b[lst->len_b] == find_max(lst->stack_b, lst->len_b))
-				push_a(lst);
-		//	if (sort_stack_a(lst) && sort_stack_b(lst))
-		//		pivot = ps_algo2(lst, pivot);
+			if (sort_stack_a(lst) && sort_stack_b(lst))
+				pivot = ps_algo2(lst, pivot);
 	
 			//pivot = ps_algo2(lst, pivot);
 		}
