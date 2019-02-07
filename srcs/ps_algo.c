@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 09:36:50 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 12:07:52 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -62,9 +62,15 @@ static MINT	find_sens(t_pusw *lst, MINT index)
 			break ;
 		count2--;
 	}
-	if (stack[count2] > stack[count])
-		return (1);
-	return (0);
+	if ((len - count2) == count)
+	{
+		if (stack[count] <= stack[count2])
+			return (1);
+		return (0);
+	}
+	else if ((len - count2) > count)
+		return (0);
+	return (1);
 }
 
 static void	split_stack(t_pusw *lst)

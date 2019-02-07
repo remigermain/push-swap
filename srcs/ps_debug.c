@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:19:05 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:30:49 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 12:01:59 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,6 +28,9 @@ static void	ps_debugs2(t_pusw *lst, int count)
 			ft_printf("|%12c|", ' ');
 		ft_printf("\n");
 	}
+	ft_printf("\n%{T_LGREY}[	nombre d'instruction = %{T_EOC}");
+	ft_printf("%12d", lst->instruction);
+	ft_printf("%{T_LGREY}         ]%{T_EOC}\n");
 }
 
 void		ps_debugs(t_pusw *lst, int nb, int index)
