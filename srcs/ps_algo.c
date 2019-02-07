@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 12:07:52 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 12:46:46 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,11 +22,28 @@ static void	visu(t_pusw *lst)
 	}
 }
 
-static int	sort_stack(int *stack, int len)
+static int	sort_stack_b(t_pusw *lst)
 {
+	int	len;
+
+	len = lst->len_b;
 	while (len > 0)
 	{
-		if (stack[len] > stack[len - 1])
+		if (lst->stack_b[len] < lst->stack_b[len - 1])
+			return (0);
+		len--;
+	}
+	return (1);
+}
+
+static int	sort_stack_a(t_pusw *lst)
+{
+	int	len;
+
+	len = lst->len_a;
+	while (len > 0)
+	{
+		if (lst->stack_a[len] > lst->stack_a[len - 1])
 			return (0);
 		len--;
 	}
@@ -109,6 +126,8 @@ static int	ps_algo2(t_pusw *lst, int pivot)
 void		ps_algo(t_pusw *lst)
 {
 	int pivot;
+	int	sens_a;
+	int	sens_b;
 
 	pivot = 0;
 	if (!ft_issort(lst))
@@ -119,20 +138,44 @@ void		ps_algo(t_pusw *lst)
 		while (!ft_issort(lst))
 		{
 			visu(lst);
-			if (sort_stack(lst->stack_a, lst->len_a))
+			sens_a = find_sens(lst, 1);
+			sens_b = (find_sens(lst, 2) == 1 ? 0 : 1);
+			if (sort_stack_a(lst))
 				pivot = lst->len_a;
-			if (lst->stack_a[lst->len_a] > lst->stack_a[0])
-				rotate_a(lst);
-			if (lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+			if (((lst->len_a > 0 && lst->stack_a[lst->len_a - 1] < lst->stack_a[lst->len_a]) &&
+				(lst->len_b > 0 && lst->stack_b[lst->len_b - 1] > lst->stack_b[lst->len_b])) &&
+					!sort_stack_a(lst) && !sort_stack_b(lst))
+				swap_ab(lst);
+			else if ((lst->len_a > 0 && lst->stack_a[lst->len_a - 1] < lst->stack_a[lst->len_a])
+					&& !sort_stack_a(lst))
 				swap_a(lst);
-			else if (lst->len_b != -1 &&
-					lst->stack_b[lst->len_b] > lst->stack_a[lst->len_a])
-				push_a(lst);
-			else if (!sort_stack(lst->stack_a, lst->len_a))
-				push_b(lst);
-			else if (lst->stack_b[lst->len_b] < lst->stack_b[0])
+			else if ((lst->len_b > 0 && lst->stack_b[lst->len_b - 1] > lst->stack_b[lst->len_b])
+					&& !sort_stack_b(lst))
+				swap_b(lst);
+			else if (((lst->len_a > 0 && lst->stack_a[0] < lst->stack_a[lst->len_a]) &&
+				(lst->len_b > 0 && lst->stack_b[0] > lst->stack_b[lst->len_b])) &&
+					!sort_stack_a(lst) && !sort_stack_b(lst))
+				rotate_ab(lst);
+			else if ((lst->len_a > 0 && lst->stack_a[0] < lst->stack_a[lst->len_a])
+					&& !sort_stack_a(lst))
+				rotate_a(lst);
+			else if ((lst->len_b > 0 && lst->stack_b[0] > lst->stack_b[lst->len_b])
+					&& !sort_stack_b(lst))
+				rotate_b(lst);
+			else if (((lst->len_a > 0 && lst->stack_a[0] > lst->stack_a[lst->len_a]) &&
+				(lst->len_b > 0 && lst->stack_b[0] < lst->stack_b[lst->len_b])) &&
+					!sort_stack_a(lst) && !sort_stack_b(lst))
+				rev_rotate_ab(lst);
+			else if ((lst->len_a > 0 && lst->stack_a[0] > lst->stack_a[lst->len_a])
+					&& !sort_stack_a(lst))
+				rev_rotate_a(lst);
+			else if ((lst->len_b > 0 && lst->stack_b[0] < lst->stack_b[lst->len_b])
+					&& !sort_stack_b(lst))
 				rev_rotate_b(lst);
-			pivot = ps_algo2(lst, pivot);
+			if (sort_stack_a(lst) && sort_stack_b(lst))
+				pivot = ps_algo2(lst, pivot);
+	
+			//pivot = ps_algo2(lst, pivot);
 		}
 	}
 	visu(lst);
