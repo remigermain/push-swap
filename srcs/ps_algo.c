@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 14:38:01 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 15:57:00 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -78,6 +78,63 @@ static int	find_max(int *stack, int len)
 	return (min);
 }
 
+static int	find_next_min(int *stack, int len, int tmp)
+{
+	int	min;
+
+	min = 2147483647;
+	while (len >= 0)
+	{
+		if (stack[len] < min && stack[len] > tmp)
+			min = stack[len];
+		len--;
+	}
+	return (min);
+}
+
+static int	find_next_max(int *stack, int len, int tmp)
+{
+	int	min;
+
+	min = -2147483648;
+	while (len >= 0)
+	{
+		if (stack[len] > min && stack[len] < tmp)
+			min = stack[len];
+		len--;
+	}
+	return (min);
+}
+
+
+static int	find_med(int *stack, int len)
+{
+	int		count;
+	int		min;
+	int		max;
+
+	count = -1;
+	max = find_max(stack, len);
+	min = find_min(stack, len);
+	while ((len / 2) > ++count)
+	{
+		max = find_next_max(stack, len, max);
+		min = find_next_min(stack, len, min);
+	}
+	return (min);
+}
+
+static int	find_nb(int *stack, int len, int nb)
+{
+	while (len >= 0)
+	{
+		if (stack[len] == nb)
+			return (len);
+		len--;
+	}
+	return (0);
+}
+
 static MINT	find_sens(t_pusw *lst, MINT index)
 {
 	int		count;
@@ -132,9 +189,19 @@ static void	split_stack(t_pusw *lst)
 			sens = find_sens(lst, 1);
 		}
 		else if (sens == 1)
-			rotate_a(lst);
+		{
+			if (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+				rotate_ab(lst);
+			else
+				rotate_a(lst);
+		}
 		else
-			rev_rotate_a(lst);
+		{
+			if (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[0])
+				rev_rotate_ab(lst);
+			else
+				rev_rotate_a(lst);
+		}
 	}
 }
 
@@ -154,8 +221,8 @@ static int	ps_algo2(t_pusw *lst, int pivot)
 void		ps_algo(t_pusw *lst)
 {
 	int pivot;
-	int	sens_a;
-	int	sens_b;
+	int	sens;
+	int	max;
 
 	pivot = 0;
 	if (!ft_issort(lst))
@@ -165,50 +232,55 @@ void		ps_algo(t_pusw *lst)
 		visu(lst);
 		while (!ft_issort(lst))
 		{
+			if (lst->len_a == -1)
+				break ;
 			visu(lst);
-			sens_a = find_sens(lst, 1);
-			sens_b = (find_sens(lst, 2) == 1 ? 0 : 1);
-			if (sort_stack_a(lst))
-				pivot = lst->len_a;
-			if (sort_stack_a(lst) && !sort_stack_b(lst) && lst->stack_b[lst->len_b] == find_max(lst->stack_b, lst->len_b))
-				push_a(lst);
-			else if (sort_stack_b(lst) && !sort_stack_a(lst) && lst->stack_a[lst->len_a] == find_min(lst->stack_a, lst->len_a))
+			lst->med = find_med(lst->stack_a, lst->len_a);
+			sens = find_sens(lst, 1);
+			if (lst->stack_a[lst->len_a] <= lst->med)
+			{
 				push_b(lst);
-	
-			else if (((lst->len_a > 0 && lst->stack_a[lst->len_a - 1] < lst->stack_a[lst->len_a]) &&
-				(lst->len_b > 0 && lst->stack_b[lst->len_b - 1] > lst->stack_b[lst->len_b])) &&
-					!sort_stack_a(lst) && !sort_stack_b(lst))
-				swap_ab(lst);
-			else if ((lst->len_a > 0 && lst->stack_a[lst->len_a - 1] < lst->stack_a[lst->len_a])
-					&& !sort_stack_a(lst))
-				swap_a(lst);
-			else if ((lst->len_b > 0 && lst->stack_b[lst->len_b - 1] > lst->stack_b[lst->len_b])
-					&& !sort_stack_b(lst))
-				swap_b(lst);
-			else if (((lst->len_a > 0 && lst->stack_a[0] < lst->stack_a[lst->len_a]) &&
-				(lst->len_b > 0 && lst->stack_b[0] > lst->stack_b[lst->len_b])) &&
-					!sort_stack_a(lst) && !sort_stack_b(lst))
-				rotate_ab(lst);
-			else if ((lst->len_a > 0 && lst->stack_a[0] < lst->stack_a[lst->len_a])
-					&& !sort_stack_a(lst))
-				rotate_a(lst);
-			else if ((lst->len_b > 0 && lst->stack_b[0] > lst->stack_b[lst->len_b])
-					&& !sort_stack_b(lst))
+				sens = find_sens(lst, 1);
+			}
+			else if (sens == 1)
+			{
+				if (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+					rotate_ab(lst);
+				else
+					rotate_a(lst);
+			}
+			else
+			{
+				if (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[0])
+					rev_rotate_ab(lst);
+				else
+					rev_rotate_a(lst);
+			}
+		}
+		visu(lst);
+		max = find_max(lst->stack_b, lst->len_b);
+		sens = find_nb(lst->stack_b, lst->len_b, max);
+		if (sens > (lst->len_b / 2))
+			sens = 1;
+		else
+			sens = 0;
+		while (!ft_issort(lst))
+		{
+			visu(lst);
+			if (lst->stack_b[lst->len_b] == max)
+			{
+				push_a(lst);
+				max = find_max(lst->stack_b, lst->len_b);
+				sens = find_nb(lst->stack_b, lst->len_b, max);
+				if (sens > (lst->len_b / 2))
+					sens = 1;
+				else
+					sens = 0;
+			}
+			if (sens == 1)
 				rotate_b(lst);
-			else if (((lst->len_a > 0 && lst->stack_a[0] > lst->stack_a[lst->len_a]) &&
-				(lst->len_b > 0 && lst->stack_b[0] < lst->stack_b[lst->len_b])) &&
-					!sort_stack_a(lst) && !sort_stack_b(lst))
-				rev_rotate_ab(lst);
-			else if ((lst->len_a > 0 && lst->stack_a[0] > lst->stack_a[lst->len_a])
-					&& !sort_stack_a(lst))
-				rev_rotate_a(lst);
-			else if ((lst->len_b > 0 && lst->stack_b[0] < lst->stack_b[lst->len_b])
-					&& !sort_stack_b(lst))
+			else
 				rev_rotate_b(lst);
-			if (sort_stack_a(lst) && sort_stack_b(lst))
-				pivot = ps_algo2(lst, pivot);
-	
-			//pivot = ps_algo2(lst, pivot);
 		}
 	}
 	visu(lst);
