@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 16:36:58 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 16:44:19 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -256,7 +256,7 @@ void		ps_algo(t_pusw *lst)
 		while (!ft_issort(lst))
 		{
 			visu(lst);
-			if (lst->stack_b[lst->len_b] == max)
+			if (lst->stack_b[lst->len_b] == max || lst->len_b == 0)
 			{
 				push_a(lst);
 				max = find_max(lst->stack_b, lst->len_b);
@@ -266,9 +266,9 @@ void		ps_algo(t_pusw *lst)
 				else
 					sens = 0;
 			}
-			if (sens == 1 && lst->len_b > 0)
+			else if (sens == 1)
 				rotate_b(lst);
-			else if (lst->len_b > 0)
+			else
 				rev_rotate_b(lst);
 		}
 	}
