@@ -6,69 +6,57 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 13:23:59 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/06 09:46:21 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_checker.h"
 
-static void	ps_final_check(t_pusw *lst)
+static int	ps_checker2(t_puswc *lst, char *line)
 {
-	int ret;
-
-	ret = ft_issort(lst);
-	ft_printf("\n\n le tableaux est ");
-	if (ret == 1 && lst->len_b == -1)
-		ft_printf("%{T_GREEN} [OK]%{T_EOC}");
-	else
-		ft_printf("%{T_RED} [KO]%{T_EOC}");
-	ft_printf("\n");
-}
-
-static void	ps_interact2(t_pusw *lst, char *line)
-{
-	if (!ft_strcmp(line, "pb"))
-		push_b(lst);
-	else if (!ft_strcmp(line, "ra"))
+	if (ft_strcmp(line, "ra") == 0)
 		rotate_a(lst);
-	else if (!ft_strcmp(line, "rb"))
+	else if (ft_strcmp(line, "rb") == 0)
 		rotate_b(lst);
-	else if (!ft_strcmp(line, "rr"))
+	else if (ft_strcmp(line, "rr") == 0)
 		rotate_ab(lst);
-	else if (!ft_strcmp(line, "rra"))
+	else if (ft_strcmp(line, "rra") == 0)
 		rev_rotate_a(lst);
-	else if (!ft_strcmp(line, "rrb"))
+	else if (ft_strcmp(line, "rrb") == 0)
 		rev_rotate_b(lst);
-	else if (!ft_strcmp(line, "rrr"))
+	else if (ft_strcmp(line, "rrr") == 0)
 		rev_rotate_ab(lst);
+	else
+		return (-1);
+	return (1);
 }
 
-void		ps_interact(t_pusw *lst)
+int			ps_checker(t_puswc *lst)
 {
 	char	*line;
 
-	while (1)
+	while (get_next_line(0, &line) == 1)
 	{
-		ps_debugs(lst, 9, 0);
-		ft_printf("\n nombre d'instruction = %zu\n\33[K", lst->instruction);
-		get_next_line(0, &line);
-		if (!ft_strcmp(line, "sa"))
+		if (ft_strcmp(line, "sa") == 0)
 			swap_a(lst);
-		else if (!ft_strcmp(line, "sb"))
+		else if (ft_strcmp(line, "sb") == 0)
 			swap_b(lst);
-		else if (!ft_strcmp(line, "ss"))
+		else if (ft_strcmp(line, "ss") == 0)
 			swap_ab(lst);
-		else if (!ft_strcmp(line, "pa"))
+		else if (ft_strcmp(line, "pa") == 0)
 			push_a(lst);
-		else if (!ft_strcmp(line, "break") || !ft_strcmp(line, "make"))
-		{
-			free(line);
-			break ;
-		}
+		else if (ft_strcmp(line, "pb") == 0)
+			push_b(lst);
 		else
-			ps_interact2(lst, line);
+		{
+			if (ps_checker2(lst, line) == -1)
+			{
+				free(line);
+				return (0);
+			}
+		}
 		free(line);
 	}
-	ps_final_check(lst);
+	return (ft_issort(lst));
 }

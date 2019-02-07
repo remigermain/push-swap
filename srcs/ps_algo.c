@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 12:46:46 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 13:27:31 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,20 @@ static int	sort_stack_a(t_pusw *lst)
 		len--;
 	}
 	return (1);
+}
+
+static int	find_max(int *stack, int len)
+{
+	int	min;
+
+	min = -2147483648;
+	while (len >= 0)
+	{
+		if (stack[len] > min)
+			min = stack[len];
+		len--;
+	}
+	return (min);
 }
 
 static MINT	find_sens(t_pusw *lst, MINT index)
@@ -172,8 +186,10 @@ void		ps_algo(t_pusw *lst)
 			else if ((lst->len_b > 0 && lst->stack_b[0] < lst->stack_b[lst->len_b])
 					&& !sort_stack_b(lst))
 				rev_rotate_b(lst);
-			if (sort_stack_a(lst) && sort_stack_b(lst))
-				pivot = ps_algo2(lst, pivot);
+			else if (sort_stack_a(lst) && lst->stack_b[lst->len_b] == find_max(lst->stack_b, lst->len_b))
+				push_a(lst);
+		//	if (sort_stack_a(lst) && sort_stack_b(lst))
+		//		pivot = ps_algo2(lst, pivot);
 	
 			//pivot = ps_algo2(lst, pivot);
 		}
