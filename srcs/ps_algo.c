@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 18:42:34 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 19:11:15 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -174,7 +174,7 @@ static MINT	find_sens(t_pusw *lst, MINT index)
 	}
 	if ((len - count2) == count)
 	{
-		if (stack[count] <= stack[count2])
+		if (stack[count] < stack[count2])
 			return (1);
 		return (0);
 	}
@@ -214,6 +214,8 @@ void		ps_algo(t_pusw *lst)
 	int pivot;
 	int	sens;
 	int	max;
+	int	max_n;
+	int	index;
 
 	pivot = 0;
 	if (!ft_issort(lst))
@@ -252,8 +254,9 @@ void		ps_algo(t_pusw *lst)
 		}
 		visu(lst);
 
-
+	index = 0;
 		max = find_max(lst->stack_b, lst->len_b);
+		max_n = find_next_max(lst->stack_b, lst->len_b, max);
 		if ((sens = find_nb(lst->stack_b, lst->len_b, max)) > (lst->len_b / 2))
 			sens = 1;
 		else
@@ -261,10 +264,25 @@ void		ps_algo(t_pusw *lst)
 		while (!ft_issort(lst))
 		{
 			visu(lst);
-			if (lst->stack_b[lst->len_b] == max || lst->len_b == 0)
+			if ((lst->stack_b[lst->len_b] == max || lst->len_b == 0 ||
+				(lst->stack_b[lst->len_b] == max_n && index == 0)))
 			{
-				push_a(lst);
-				max = find_max(lst->stack_b, lst->len_b);
+				if (lst->stack_b[lst->len_b] == max_n && index == 0)
+					index = 1;
+				push_a(lst);				
+				if (lst->stack_a[lst->len_a] == max && index == 1)
+				{
+					if (lst->len_a > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+						swap_ab(lst);
+					else
+						swap_a(lst);
+					index = 0;
+				}
+				if (index == 0)
+				{
+					max = find_max(lst->stack_b, lst->len_b);
+					max_n = find_next_max(lst->stack_b, lst->len_b, max);
+				}
 				if ((sens = find_nb(lst->stack_b, lst->len_b, max)) > (lst->len_b / 2))
 					sens = 1;
 				else
