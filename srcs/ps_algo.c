@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 16:43:38 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 09:36:50 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ static void	visu(t_pusw *lst)
 	if (lst->visu == 1)
 	{
 		ps_debugs(lst, 9, 0);
-		usleep(100000);
+		usleep(lst->time * 10000);
 	}
 }
 
@@ -35,7 +35,7 @@ static int	sort_stack(int *stack, int len)
 
 static MINT	find_sens(t_pusw *lst, MINT index)
 {
-	size_t	count;
+	int		count;
 	int		count2;
 	int		*stack;
 	int		len;
@@ -48,6 +48,7 @@ static MINT	find_sens(t_pusw *lst, MINT index)
 		len = lst->len_a;
 	else
 		len = lst->len_b;
+	count = 0;
 	while (count <= len)
 	{
 		if (stack[count] <= lst->med)
@@ -57,12 +58,11 @@ static MINT	find_sens(t_pusw *lst, MINT index)
 	count2 = len;
 	while (count2 >= 0)
 	{
-		if (stack[len] <= lst->med)
+		if (stack[count2] <= lst->med)
 			break ;
-		len++;
+		count2--;
 	}
-	len -= count2;
-	if (len > count)
+	if (stack[count2] > stack[count])
 		return (1);
 	return (0);
 }
@@ -74,19 +74,12 @@ static void	split_stack(t_pusw *lst)
 	sens = find_sens(lst, 1);
 	while (lst->len_b < lst->len_a)
 	{
+		visu(lst);
 		if (lst->stack_a[lst->len_a] <= lst->med)
 		{
 			push_b(lst);
 			sens = find_sens(lst, 1);
 		}
-		else if (sens == 1 && lst->len_b > 0 && (
-					lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1] ||
-					lst->stack_b[lst->len_b] > lst->stack_b[0]))
-			rotate_ab(lst);
-		else if (sens == 1 && lst->len_b > 0  && (
-					lst->stack_b[lst->len_b] > lst->stack_b[lst->len_b - 1] ||
-					lst->stack_b[lst->len_b] < lst->stack_b[0]))
-			rev_rotate_ab(lst);
 		else if (sens == 1)
 			rotate_a(lst);
 		else
@@ -116,13 +109,12 @@ void		ps_algo(t_pusw *lst)
 	{
 		if (lst->len_a > 4)
 			split_stack(lst);
+		visu(lst);
 		while (!ft_issort(lst))
 		{
 			visu(lst);
-			pivot = 0;
-			while (!sort_stack(lst->stack_a, lst->len_a - pivot))
-				pivot++;
-			pivot = lst->len_a - pivot;
+			if (sort_stack(lst->stack_a, lst->len_a))
+				pivot = lst->len_a;
 			if (lst->stack_a[lst->len_a] > lst->stack_a[0])
 				rotate_a(lst);
 			if (lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])

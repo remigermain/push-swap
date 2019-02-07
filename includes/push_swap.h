@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/06 12:46:51 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 09:10:34 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,6 +26,7 @@ typedef struct	s_pusw
 	int		med;
 	int		max;
 	MINT	visu;
+	MINT	time;
 }				t_pusw;
 
 int				check_arg(char **argv);
