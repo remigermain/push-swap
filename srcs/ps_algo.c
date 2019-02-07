@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 15:57:00 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 16:36:58 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ static void	visu(t_pusw *lst)
 	if (lst->visu == 1)
 	{
 		ps_debugs(lst, 9, 0);
-		usleep(lst->time * 10000);
+		usleep(lst->time * 1000);
 	}
 }
 
@@ -230,32 +230,21 @@ void		ps_algo(t_pusw *lst)
 		if (lst->len_a > 4)
 			split_stack(lst);
 		visu(lst);
-		while (!ft_issort(lst))
-		{
-			if (lst->len_a == -1)
-				break ;
-			visu(lst);
-			lst->med = find_med(lst->stack_a, lst->len_a);
+		lst->med = find_med(lst->stack_a, lst->len_a);
 			sens = find_sens(lst, 1);
+		while (lst->len_a != 0)
+		{
+			visu(lst);
 			if (lst->stack_a[lst->len_a] <= lst->med)
 			{
 				push_b(lst);
+				lst->med = find_med(lst->stack_a, lst->len_a);
 				sens = find_sens(lst, 1);
 			}
 			else if (sens == 1)
-			{
-				if (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-					rotate_ab(lst);
-				else
-					rotate_a(lst);
-			}
+				rotate_a(lst);
 			else
-			{
-				if (lst->stack_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[0])
-					rev_rotate_ab(lst);
-				else
-					rev_rotate_a(lst);
-			}
+				rev_rotate_a(lst);
 		}
 		visu(lst);
 		max = find_max(lst->stack_b, lst->len_b);
@@ -277,9 +266,9 @@ void		ps_algo(t_pusw *lst)
 				else
 					sens = 0;
 			}
-			if (sens == 1)
+			if (sens == 1 && lst->len_b > 0)
 				rotate_b(lst);
-			else
+			else if (lst->len_b > 0)
 				rev_rotate_b(lst);
 		}
 	}

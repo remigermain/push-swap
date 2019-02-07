@@ -6,14 +6,14 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 15:37:47 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/07 16:13:16 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static MINT	init_time_interact(int *argc, char ***argv)
+static int	init_time_interact(int *argc, char ***argv)
 {
 	int	time;
 
