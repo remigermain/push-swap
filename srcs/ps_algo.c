@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 12:38:55 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 12:41:08 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ static void	split_reste(t_pusw *lst, char sens)
 			swap_a(lst);
 		else if (((lst->len_a + lst->len_b + 2) < 8) && lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 			swap_b(lst);
-		if (lst->stack_a[lst->len_a] <= lst->med)
+		else if (lst->stack_a[lst->len_a] <= lst->med)
 		{
 			push_b(lst);
 			if (lst->med == lst->stack_b[lst->len_b])
