@@ -6,201 +6,34 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 19:11:15 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 09:55:39 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	visu(t_pusw *lst)
+static void	split_stack(t_pusw *lst, char sens)
 {
-	if (lst->visu == 1)
-	{
-		ps_debugs(lst, 9, 0);
-		usleep(lst->time * 1000);
-	}
-}
-
-static int	sort_stack_b(t_pusw *lst)
-{
-	int	len;
-
-	len = lst->len_b;
-	while (len > 0)
-	{
-		if (lst->stack_b[len] < lst->stack_b[len - 1])
-			return (0);
-		len--;
-	}
-	return (1);
-}
-
-static int	sort_stack_a(t_pusw *lst)
-{
-	int	len;
-
-	len = lst->len_a;
-	while (len > 0)
-	{
-		if (lst->stack_a[len] > lst->stack_a[len - 1])
-			return (0);
-		len--;
-	}
-	return (1);
-}
-
-static int	find_min(int *stack, int len)
-{
-	int	min;
-
-	min = 2147483647;
-	while (len >= 0)
-	{
-		if (stack[len] < min)
-			min = stack[len];
-		len--;
-	}
-	return (min);
-}
-
-static int	find_max(int *stack, int len)
-{
-	int	min;
-
-	min = -2147483648;
-	while (len >= 0)
-	{
-		if (stack[len] > min)
-			min = stack[len];
-		len--;
-	}
-	return (min);
-}
-
-static int	find_next_min(int *stack, int len, int tmp)
-{
-	int	min;
-
-	min = 2147483647;
-	while (len >= 0)
-	{
-		if (stack[len] < min && stack[len] > tmp)
-			min = stack[len];
-		len--;
-	}
-	return (min);
-}
-
-static int	find_next_max(int *stack, int len, int tmp)
-{
-	int	min;
-
-	min = -2147483648;
-	while (len >= 0)
-	{
-		if (stack[len] > min && stack[len] < tmp)
-			min = stack[len];
-		len--;
-	}
-	return (min);
-}
-
-
-static int	find_med(int *stack, int len)
-{
-	int		count;
-	int		min;
-	int		max;
-
-	count = -1;
-	max = find_max(stack, len);
-	min = find_min(stack, len);
-	while ((len / 2) > ++count)
-	{
-		max = find_next_max(stack, len, max);
-		min = find_next_min(stack, len, min);
-	}
-	return (min);
-}
-
-static int	find_nb(int *stack, int len, int nb)
-{
-	while (len >= 0)
-	{
-		if (stack[len] == nb)
-			return (len);
-		len--;
-	}
-	return (0);
-}
-
-static int	sort_realstack_a(t_pusw *lst)
-{
-	if ((find_min(lst->stack_a, lst->len_a) > find_max(lst->stack_b, lst->len_b)) && sort_stack_a(lst))
-		return (1);
-	return (0);
-}
-
-
-static MINT	find_sens(t_pusw *lst, MINT index)
-{
-	int		count;
-	int		count2;
-	int		*stack;
-	int		len;
-
-	if (index == 1)
-		stack = lst->stack_a;
-	else
-		stack = lst->stack_b;
-	if (index == 1)
-		len = lst->len_a;
-	else
-		len = lst->len_b;
-	count = 0;
-	while (count <= len)
-	{
-		if (stack[count] <= lst->med)
-			break ;
-		count++;
-	}
-	count2 = len;
-	while (count2 >= 0)
-	{
-		if (stack[count2] <= lst->med)
-			break ;
-		count2--;
-	}
-	if ((len - count2) == count)
-	{
-		if (stack[count] < stack[count2])
-			return (1);
-		return (0);
-	}
-	else if ((len - count2) > count)
-		return (0);
-	return (1);
-}
-
-static void	split_stack(t_pusw *lst)
-{
-	MINT	sens;
-
-	sens = find_sens(lst, 1);
+	lst->med = find_med(lst->stack_a, lst->len_a);
+	sens = find_midsens(lst);
 	while (lst->len_b < lst->len_a)
 	{
-		visu(lst);
+		ps_visu(lst);
 		if (lst->stack_a[lst->len_a] <= lst->med)
 		{
 			push_b(lst);
-			sens = find_sens(lst, 1);
+			sens = find_midsens(lst);
 		}
-		else if (sens == 1 && (lst->stack_b > 0 && ((lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-				|| (lst->stack_b[0] > lst->stack_b[1] && (lst->stack_a[0] > lst->stack_a[1])))))
+		else if (sens == 1 && (lst->stack_b > 0 &&
+			((lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1]) ||
+				(lst->stack_b[0] > lst->stack_b[1] &&
+					(lst->stack_a[0] > lst->stack_a[1])))))
 			rotate_ab(lst);
-		else if (sens == 0 && lst->stack_b > 0 && ((lst->stack_b[lst->len_b] < lst->stack_b[0])
-				|| (lst->stack_b[0] > lst->stack_b[1] && (lst->stack_a[0] < lst->stack_a[1]))))
+		else if (sens == 0 && lst->stack_b > 0 &&
+				((lst->stack_b[lst->len_b] < lst->stack_b[0]) ||
+					(lst->stack_b[0] > lst->stack_b[1] &&
+					(lst->stack_a[0] < lst->stack_a[1]))))
 			rev_rotate_ab(lst);
 		else if (sens == 1)
 			rotate_a(lst);
@@ -209,90 +42,84 @@ static void	split_stack(t_pusw *lst)
 	}
 }
 
+static void	split_reste(t_pusw *lst, char sens)
+{
+	lst->med = find_med(lst->stack_a, lst->len_a);
+	sens = find_midsens(lst);
+	while (!sort_realstack_a(lst))
+	{
+		ps_visu(lst);
+		if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+				lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+			swap_ab(lst);
+		else if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+			swap_a(lst);
+		else if (lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+			swap_b(lst);
+		else if (lst->stack_a[lst->len_a] <= lst->med)
+		{
+			push_b(lst);
+			if (lst->med == lst->stack_b[lst->len_b])
+				lst->med = find_med(lst->stack_a, lst->len_a);
+			sens = find_midsens(lst);
+		}
+		else if (sens == 1 && (lst->stack_b > 0 && ((lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+				|| (lst->stack_b[0] > lst->stack_b[1]))))
+			rotate_ab(lst);
+		else if (sens == 0 && lst->stack_b > 0 && ((lst->stack_b[lst->len_b] < lst->stack_b[0])
+				|| (lst->stack_b[0] > lst->stack_b[1])))
+			rev_rotate_ab(lst);
+		else if (sens == 1)
+			rotate_a(lst);
+		else
+			rev_rotate_a(lst);
+	}
+	ps_visu(lst);
+}
+
+static void	put_rest(t_pusw *lst, char sens, char ind_m, char ind_nm)
+{
+	lst->max = find_max(lst->stack_b, lst->len_b);
+	lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
+	sens = find_sens(lst, lst->max);
+	while (!ft_issort(lst))
+	{
+		ps_visu(lst);
+		if ((lst->stack_b[lst->len_b] == lst->max || lst->len_b == 0 ||
+			(lst->stack_b[lst->len_b] == lst->max_n && ind_m == 0)))
+		{
+			if (lst->stack_b[lst->len_b] == lst->max_n && ind_m == 0)
+				ind_m = 1;
+			push_a(lst);
+			if (lst->stack_a[lst->len_a] == lst->max && ind_m == 1)
+			{
+				if (lst->len_a > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+					swap_ab(lst);
+				else
+					swap_a(lst);
+				ind_m = 0;
+			}
+			if (ind_m == 0)
+			{
+				lst->max = find_max(lst->stack_b, lst->len_b);
+				lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
+			}
+			sens = find_sens(lst, lst->max);
+		}
+		else if (sens == 1)
+			rotate_b(lst);
+		else
+			rev_rotate_b(lst);
+	}
+}
+
 void		ps_algo(t_pusw *lst)
 {
-	int pivot;
-	int	sens;
-	int	max;
-	int	max_n;
-	int	index;
-
-	pivot = 0;
 	if (!ft_issort(lst))
 	{
-		split_stack(lst);
-		visu(lst);
-		lst->med = find_med(lst->stack_a, lst->len_a);
-		sens = find_sens(lst, 1);
-		while (!sort_realstack_a(lst))
-		{
-			visu(lst);
-			if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
-					lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-				swap_ab(lst);
-			else if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
-				swap_a(lst);
-			else if (lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-				swap_b(lst);
-			else if (lst->stack_a[lst->len_a] <= lst->med)
-			{
-				push_b(lst);
-				if (lst->med == lst->stack_b[lst->len_b])
-					lst->med = find_med(lst->stack_a, lst->len_a);
-				sens = find_sens(lst, 1);
-			}
-			else if (sens == 1 && (lst->stack_b > 0 && ((lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-					|| (lst->stack_b[0] > lst->stack_b[1]))))
-				rotate_ab(lst);
-			else if (sens == 0 && lst->stack_b > 0 && ((lst->stack_b[lst->len_b] < lst->stack_b[0])
-					|| (lst->stack_b[0] > lst->stack_b[1])))
-				rev_rotate_ab(lst);
-			else if (sens == 1)
-				rotate_a(lst);
-			else
-				rev_rotate_a(lst);
-		}
-		visu(lst);
-
-	index = 0;
-		max = find_max(lst->stack_b, lst->len_b);
-		max_n = find_next_max(lst->stack_b, lst->len_b, max);
-		if ((sens = find_nb(lst->stack_b, lst->len_b, max)) > (lst->len_b / 2))
-			sens = 1;
-		else
-			sens = 0;
-		while (!ft_issort(lst))
-		{
-			visu(lst);
-			if ((lst->stack_b[lst->len_b] == max || lst->len_b == 0 ||
-				(lst->stack_b[lst->len_b] == max_n && index == 0)))
-			{
-				if (lst->stack_b[lst->len_b] == max_n && index == 0)
-					index = 1;
-				push_a(lst);				
-				if (lst->stack_a[lst->len_a] == max && index == 1)
-				{
-					if (lst->len_a > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-						swap_ab(lst);
-					else
-						swap_a(lst);
-					index = 0;
-				}
-				if (index == 0)
-				{
-					max = find_max(lst->stack_b, lst->len_b);
-					max_n = find_next_max(lst->stack_b, lst->len_b, max);
-				}
-				if ((sens = find_nb(lst->stack_b, lst->len_b, max)) > (lst->len_b / 2))
-					sens = 1;
-				else
-					sens = 0;
-			}
-			else if (sens == 1)
-				rotate_b(lst);
-			else
-				rev_rotate_b(lst);
-		}
+		split_stack(lst, 0);
+		split_reste(lst, 0);
+		put_rest(lst, 0, 0, 0);
 	}
-	visu(lst);
+	ps_visu(lst);
 }

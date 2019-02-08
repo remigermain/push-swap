@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:19:05 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 12:01:59 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 09:50:30 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,7 @@ static void	ps_debugs2(t_pusw *lst, int count)
 	ft_printf("%{T_LGREY}         ]%{T_EOC}\n");
 }
 
-void		ps_debugs(t_pusw *lst, int nb, int index)
+static void	ps_debugs(t_pusw *lst, int nb, int index)
 {
 	int count;
 
@@ -52,4 +52,13 @@ void		ps_debugs(t_pusw *lst, int nb, int index)
 	ft_printf("%15c%{T_BLUE}[%13d]%{T_YELLOW}     ", ' ', lst->len_a);
 	ft_printf(" [%12d]%{T_EOC}\n\n", lst->len_b);
 	ps_debugs2(lst, count);
+}
+
+void		ps_visu(t_pusw *lst)
+{
+	if (lst->visu == 1)
+	{
+		ps_debugs(lst, 9, 0);
+		usleep(lst->time * 10000);
+	}
 }

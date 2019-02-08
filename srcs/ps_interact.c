@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 13:23:59 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 09:24:31 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,7 @@ void		ps_interact(t_pusw *lst)
 
 	while (1)
 	{
-		ps_debugs(lst, 9, 0);
+		ps_visu(lst);
 		ft_printf("\n nombre d'instruction = %zu\n\33[K", lst->instruction);
 		get_next_line(0, &line);
 		if (!ft_strcmp(line, "sa"))
