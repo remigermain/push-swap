@@ -6,12 +6,35 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 16:13:16 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 10:18:32 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static t_pusw*	ps_struct_init(int argc, char **argv)
+{
+	t_pusw	*lst;
+	size_t	count;
+
+	count = 0;
+	lst = NULL;
+	if (!(lst = (t_pusw*)malloc(sizeof(t_pusw))))
+		ps_error(lst);
+	lst->stack_a = NULL;
+	lst->stack_b = NULL;
+	lst->instruction = 0;
+	lst->len_a = argc - 2;
+	lst->len_b = -1;
+	if (!(lst->stack_a = (int*)malloc(sizeof(int) * argc - 1)))
+		ps_error(lst);
+	if (!(lst->stack_b = (int*)malloc(sizeof(int) * argc - 1)))
+		ps_error(lst);
+	while (--argc > 0)
+		lst->stack_a[count++] = ft_atoi(argv[argc]);
+	return (lst);
+}
 
 static int	init_time_interact(int *argc, char ***argv)
 {
@@ -29,7 +52,7 @@ static int	init_time_interact(int *argc, char ***argv)
 
 static MINT	init_interact(int *argc, char ***argv)
 {
-	MINT	interact;
+	char	interact;
 
 	interact = 0;
 	if ((*argv)[(*argc) - 1][0] == 'v' || (*argv)[(*argc) - 1][0] == 'i')
@@ -47,7 +70,7 @@ static MINT	init_interact(int *argc, char ***argv)
 static int	main_manager(int argc, char **argv)
 {
 	t_pusw	*lst;
-	MINT	interact;
+	char	interact;
 	int		time;
 
 	time = init_time_interact(&argc, &argv);

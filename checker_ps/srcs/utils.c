@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 10:28:48 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 13:47:14 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 10:21:25 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,10 +34,10 @@ void	ps_free(t_puswc *lst)
 	if (lst != NULL)
 	{
 		if (lst->stack_a != NULL)
-			free(lst->stack_a);
+			ft_memdel((void**)&(lst->stack_a));
 		if (lst->stack_b != NULL)
-			free(lst->stack_b);
-		free(lst);
+			ft_memdel((void**)&(lst->stack_b));
+		ft_memdel((void**)&(lst));
 	}
 }
 

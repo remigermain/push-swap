@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/08 09:16:05 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/08 10:13:57 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -60,7 +60,7 @@ CHEADER = $(addprefix $(DHEADER),$(HEADER))
 # 								ALL  SCRS									   #
 # *****************************************************************************#
 
-SRC = main.c check_arg.c struct_init.c ps_algo.c \
+SRC = main.c check_arg.c ps_algo.c \
 		ps_interact.c utils.c ps_debug.c \
 		ps_instruct_push.c ps_instruct_revrotate.c \
 		ps_instruct_rotate.c ps_instruct_swap.c \
