@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 12:20:28 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 13:42:48 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,7 +85,7 @@ void			rev_rotate_ab(t_pusw *lst);
 void			ps_error(t_pusw *lst);
 void			ps_free(t_pusw *lst);
 int				ft_issort(t_pusw *lst);
-void			ps_interact(t_pusw *lst);
+int				ps_interact(t_pusw *lst, int ret);
 void			ps_visu(t_pusw *lst);
 
 #endif

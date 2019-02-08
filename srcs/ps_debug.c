@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:19:05 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 09:50:30 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 14:01:04 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,7 @@ static void	ps_debugs(t_pusw *lst, int nb, int index)
 
 void		ps_visu(t_pusw *lst)
 {
-	if (lst->visu == 1)
+	if (lst->visu == 1 || lst->visu == 2)
 	{
 		ps_debugs(lst, 9, 0);
 		usleep(lst->time * 10000);
