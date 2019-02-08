@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 10:18:10 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 12:20:28 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,6 +46,7 @@ int				check_arg(char **argv);
 void			ps_algo(t_pusw *lst);
 
 int				sort_realstack_a(t_pusw *lst);
+int				sort_realstack_a2(t_pusw *lst);
 int				sort_sort_a(t_pusw *lst);
 int				sort_sort_b(t_pusw *lst);
 int				find_next_max(int *stack, int len, int tmp);

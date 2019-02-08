@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 12:04:55 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 12:38:55 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,7 +17,7 @@ static void	split_stack(t_pusw *lst, char sens)
 {
 	lst->med = find_med(lst->stack_a, lst->len_a);
 	sens = find_midsens(lst);
-	while (lst->len_b < lst->len_a)
+	while ((lst->len_b + 1) < lst->len_a)
 	{
 		ps_visu(lst);
 		if (lst->stack_a[lst->len_a] <= lst->med)
@@ -45,6 +45,13 @@ static void	split_reste(t_pusw *lst, char sens)
 	while (!sort_realstack_a(lst))
 	{
 		ps_visu(lst);
+		if (((lst->len_a + lst->len_b + 2) < 8) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+				lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+			swap_ab(lst);
+		else if (((lst->len_a + lst->len_b + 2) < 8) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+			swap_a(lst);
+		else if (((lst->len_a + lst->len_b + 2) < 8) && lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+			swap_b(lst);
 		if (lst->stack_a[lst->len_a] <= lst->med)
 		{
 			push_b(lst);
@@ -71,7 +78,7 @@ static void	put_rest(t_pusw *lst, char sens, char ind_m, char ind_nm)
 	lst->max = find_max(lst->stack_b, lst->len_b);
 	lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
 	sens = find_sens(lst, lst->max);
-	while (!ft_issort(lst))
+	while (lst->len_b != -1)
 	{
 		ps_visu(lst);
 		if ((lst->stack_b[lst->len_b] == lst->max || lst->len_b == 0 ||
