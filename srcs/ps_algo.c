@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 09:55:39 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/08 12:04:55 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,15 +25,11 @@ static void	split_stack(t_pusw *lst, char sens)
 			push_b(lst);
 			sens = find_midsens(lst);
 		}
-		else if (sens == 1 && (lst->stack_b > 0 &&
-			((lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1]) ||
-				(lst->stack_b[0] > lst->stack_b[1] &&
-					(lst->stack_a[0] > lst->stack_a[1])))))
+		else if (sens == 1 && lst->stack_b > 0 &&
+				lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 			rotate_ab(lst);
 		else if (sens == 0 && lst->stack_b > 0 &&
-				((lst->stack_b[lst->len_b] < lst->stack_b[0]) ||
-					(lst->stack_b[0] > lst->stack_b[1] &&
-					(lst->stack_a[0] < lst->stack_a[1]))))
+				lst->stack_b[lst->len_b] > lst->stack_b[0])
 			rev_rotate_ab(lst);
 		else if (sens == 1)
 			rotate_a(lst);
@@ -49,25 +45,18 @@ static void	split_reste(t_pusw *lst, char sens)
 	while (!sort_realstack_a(lst))
 	{
 		ps_visu(lst);
-		if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
-				lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-			swap_ab(lst);
-		else if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
-			swap_a(lst);
-		else if (lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-			swap_b(lst);
-		else if (lst->stack_a[lst->len_a] <= lst->med)
+		if (lst->stack_a[lst->len_a] <= lst->med)
 		{
 			push_b(lst);
 			if (lst->med == lst->stack_b[lst->len_b])
 				lst->med = find_med(lst->stack_a, lst->len_a);
 			sens = find_midsens(lst);
 		}
-		else if (sens == 1 && (lst->stack_b > 0 && ((lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-				|| (lst->stack_b[0] > lst->stack_b[1]))))
+		else if (sens == 1 && lst->stack_b > 0 &&
+				lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 			rotate_ab(lst);
-		else if (sens == 0 && lst->stack_b > 0 && ((lst->stack_b[lst->len_b] < lst->stack_b[0])
-				|| (lst->stack_b[0] > lst->stack_b[1])))
+		else if (sens == 0 && lst->stack_b > 0 &&
+				lst->stack_b[lst->len_b] > lst->stack_b[0])
 			rev_rotate_ab(lst);
 		else if (sens == 1)
 			rotate_a(lst);
