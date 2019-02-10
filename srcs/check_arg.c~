@@ -49,7 +49,7 @@ static int	check_doublon(char **argv)
 	{
 		tmp = ft_atoi(argv[count]);
 		count2 = count;
-		while (argv[++count2] != NULL)
+		while (argv[++count2] != '\0')
 		{
 			if (ft_atoi(argv[count2]) == tmp)
 				return (0);
