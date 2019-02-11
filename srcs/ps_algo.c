@@ -5,62 +5,13 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 18:55:03 by rgermain    ###    #+. /#+    ###.fr     */
-/*   Updated: 2019/02/11 11:47:07 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/02/11 19:21:34 by rgermain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/11 19:21:47 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	find_mid_med(t_pusw *lst)
-{
-	int		val;
-	int		min;
-	int		i;
-
-	val = 8;
-	if (val > (lst->len_a / (val / 2)))
-		val = 2;
-	min = find_min(lst->stack_a, lst->len_a);
-	i = 0;
-	while (++i < ((lst->len_a / val) + (lst->len_a % val)))
-		min = find_next_min(lst->stack_a, lst->len_a, min);
-	lst->med = min;
-}
-
-static int	find_sens2(t_pusw *lst)
-{
-	int pos;
-	int pos2;
-	int t_pos;
-	int t_pos2;
-	int	len;
-
-	pos = find_sens(lst, lst->max);
-	pos2 = find_sens(lst, lst->max_n);
-	len = lst->len_b / 2;
-	if (pos == pos2)
-		return (pos);
-	pos = find_nb(lst->stack_b, lst->len_b, lst->max);
-	pos2 = find_nb(lst->stack_b, lst->len_b, lst->max_n);
-	t_pos = pos;
-	t_pos2 = pos2;
-	if (pos > len)
-		t_pos = lst->len_b - pos;
-	if (pos2 > len)
-		t_pos2 = lst->len_b - pos2;
-	if (t_pos < t_pos2)
-	{
-		if (pos > len)
-			return (1);
-		return (0);
-	}
-	if (pos2 > len)
-		return (1);
-	return (0);
-}
 
 static void	split_prevstack(t_pusw *lst, char sens)
 {
@@ -114,32 +65,26 @@ static void	split_stack(t_pusw *lst, char sens)
 	}
 }
 
-static void	push_final(t_pusw *lst, char sens, char ind_m, char ind_nm)
+static void	push_final(t_pusw *lst, char sens)
 {
 	lst->max = find_max(lst->stack_b, lst->len_b);
 	lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
-	sens = find_sens(lst, lst->max);
 	sens = find_sens2(lst);
 	while (lst->len_b != -1)
 	{
 		ps_visu(lst);
-		if ((lst->stack_b[lst->len_b] == lst->max || lst->len_b == 0 ||
-			(lst->stack_b[lst->len_b] == lst->max_n && ind_m == 0)))
+		if (lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1] &&
+				lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+			swap_ab(lst);
+		else if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+			swap_a(lst);
+		else if (lst->len_b == 0 || lst->stack_b[lst->len_b] == lst->max ||
+			(lst->stack_b[lst->len_b] == lst->max_n))
 		{
-			if (lst->stack_b[lst->len_b] == lst->max_n && ind_m == 0)
-				ind_m = 1;
 			push_a(lst);
-			if (lst->stack_a[lst->len_a] == lst->max && ind_m == 1)
-			{
-				if (lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-					swap_ab(lst);
-				else
-					swap_a(lst);
-				ind_m = 0;
-			}
-			if (ind_m == 1)
+			if (lst->stack_a[lst->len_a] == lst->max_n)
 				sens = find_sens(lst, lst->max);
-			if (ind_m == 0)
+			else
 			{
 				lst->max = find_max(lst->stack_b, lst->len_b);
 				lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
@@ -160,7 +105,7 @@ void		ps_algo(t_pusw *lst)
 		split_prevstack(lst, 0);
 		if (!sort_realstack_a(lst))
 			split_stack(lst, 0);
-		push_final(lst, 0, 0, 0);
+		push_final(lst, 0);
 	}
 	ps_visu(lst);
 }

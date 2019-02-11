@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 11:58:50 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/11 19:16:37 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,7 +77,7 @@ static void	ps_interact_undo(t_pusw *lst, char *line)
 	else if (!ft_strcmp(line, "rrr"))
 		rotate_ab(lst);
 	if (lst->instruction > 0)
-		lst->instruction-= 2;
+		lst->instruction -= 2;
 }
 
 static int	ps_free_interact(t_pusw *lst, char **line)
@@ -85,7 +85,7 @@ static int	ps_free_interact(t_pusw *lst, char **line)
 	int ret;
 
 	ret = 0;
-	if (!ft_strcmp((*line) ,"break"))
+	if (!ft_strcmp((*line), "break"))
 		ps_final_check(lst);
 	if (!ft_strcmp((*line), "undo"))
 		ret = -1;

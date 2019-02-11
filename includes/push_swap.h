@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 13:42:48 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/11 19:13:45 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,8 @@ int				find_med(int *stack, int len);
 int				find_nb(int *stack, int len, int nb);
 int				find_sens(t_pusw *lst, int max);
 int				find_midsens(t_pusw *lst);
+void			find_mid_med(t_pusw *lst);
+int				find_sens2(t_pusw *lst);
 
 /*
 **----------------------------------------------------------------------
