@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 14:01:17 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/11 11:58:50 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,14 +77,16 @@ static void	ps_interact_undo(t_pusw *lst, char *line)
 	else if (!ft_strcmp(line, "rrr"))
 		rotate_ab(lst);
 	if (lst->instruction > 0)
-		lst->instruction -= 2;
+		lst->instruction-= 2;
 }
 
-static int	ps_free_interact(char **line)
+static int	ps_free_interact(t_pusw *lst, char **line)
 {
 	int ret;
 
 	ret = 0;
+	if (!ft_strcmp((*line) ,"break"))
+		ps_final_check(lst);
 	if (!ft_strcmp((*line), "undo"))
 		ret = -1;
 	ft_memdel((void**)line);
@@ -99,17 +101,15 @@ int			ps_interact(t_pusw *lst, int ret)
 	{
 		ps_visu(lst);
 		get_next_line(0, &line);
-		if (!ft_strcmp(line, "break") || !ft_strcmp(line, "make") ||
-				!ft_strcmp(line, "undo"))
-			return (ps_free_interact(&line));
+		if (!ft_strcmp(line, "break") || !ft_strcmp(line, "undo"))
+			return (ps_free_interact(lst, &line));
 		else
 			ps_interact2(lst, line);
 		ret = ps_interact(lst, 1);
 		if (ret == 0)
-			return (ps_free_interact(&line));
+			return (ps_free_interact(lst, &line));
 		else if (ret == -1)
 			ps_interact_undo(lst, line);
 		ft_memdel((void**)&line);
 	}
-	ps_final_check(lst);
 }
