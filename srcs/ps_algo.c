@@ -6,11 +6,8 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-<<<<<<< HEAD
-/*   Updated: 2019/02/11 12:11:48 by rgermain    ###    #+. /#+    ###.fr     */
-=======
+/*   Updated: 2019/02/11 14:04:29 by rgermain    ###    #+. /#+    ###.fr     */
 /*   Updated: 2019/02/11 11:47:07 by rgermain    ###    #+. /#+    ###.fr     */
->>>>>>> b5a1cbcf87c4ad27af2d5a39d0a6fae528b65c14
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,11 +16,11 @@
 
 static void	find_mid_med(t_pusw *lst)
 {
-	char	val;
+	int		val;
 	int		min;
-	char	i;
+	int		i;
 
-	val = 6;
+	val = 8;
 	min = find_min(lst->stack_a, lst->len_a);
 	i = 0;
 	while (i++ < ((lst->len_a / val) + (lst->len_a % val)))
@@ -33,17 +30,21 @@ static void	find_mid_med(t_pusw *lst)
 
 static void	split_stack(t_pusw *lst, char sens)
 {
+	int	val;
+
+	val = 8;
+	ps_visu(lst);
 	find_mid_med(lst);
 	sens = find_midsens(lst);
-	while (!sort_realstack_a(lst))
+	sens = 1;
+	while (!sort_realstack_a(lst) && lst->len_a != -1)
 	{
-		ps_visu(lst);
-		if (((lst->len_a + lst->len_b + 2) < 8) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+		if (((lst->len_a + lst->len_b + 2) < val) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
 				lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 			swap_ab(lst);
-		else if (((lst->len_a + lst->len_b + 2) < 8) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+		else if (((lst->len_a + lst->len_b + 2) < val) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
 			swap_a(lst);
-		else if (((lst->len_a + lst->len_b + 2) < 8) && lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+		else if (((lst->len_a + lst->len_b + 2) < val) && lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 			swap_b(lst);
 		else if (lst->stack_a[lst->len_a] <= lst->med)
 		{
@@ -51,17 +52,16 @@ static void	split_stack(t_pusw *lst, char sens)
 			if (lst->stack_b[lst->len_b] == lst->med)
 				find_mid_med(lst);
 			sens = find_midsens(lst);
+			sens = 1;
 		}
 		else if (sens == 1 && lst->stack_b > 0 &&
 				lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 			rotate_ab(lst);
-		else if (sens == 0 && lst->stack_b > 0 &&
-				lst->stack_b[lst->len_b] > lst->stack_b[0])
-			rev_rotate_ab(lst);
 		else if (sens == 1)
 			rotate_a(lst);
 		else
 			rev_rotate_a(lst);
+		ps_visu(lst);
 	}
 }
 
@@ -81,7 +81,7 @@ static void	put_rest(t_pusw *lst, char sens, char ind_m, char ind_nm)
 			push_a(lst);
 			if (lst->stack_a[lst->len_a] == lst->max && ind_m == 1)
 			{
-				if (lst->len_a > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+				if (lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 					swap_ab(lst);
 				else
 					swap_a(lst);
