@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 16:53:35 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/11 17:55:58 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,7 +40,7 @@ static int		init_time_interact(int *argc, char ***argv)
 {
 	int	time;
 
-	time = -1;
+	time = -2;
 	if ((*argv)[(*argc) - 2][0] == 'v')
 	{
 		time = ft_atoi((*argv)[(*argc) - 1]);
@@ -79,7 +79,7 @@ static int		main_manager(int argc, char **argv)
 		return (0);
 	lst = ps_struct_init(argc, argv);
 	lst->visu = interact;
-	lst->time = (time == -1 ? 0 : time);
+	lst->time = (time == -2 ? 0 : time);
 	if (interact == 2)
 		ps_interact(lst, 1);
 	else

@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 16:47:05 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 16:47:06 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/11 18:55:02 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,10 @@ int	find_nb(int *stack, int len, int nb)
 
 int	find_sens(t_pusw *lst, int max)
 {
-	if ((find_nb(lst->stack_b, lst->len_b, max)) > (lst->len_b / 2))
+	int pos;
+
+	pos = find_nb(lst->stack_b, lst->len_b, max);
+	if (pos > (lst->len_b / 2))
 		return (1);
 	return (0);
 }
