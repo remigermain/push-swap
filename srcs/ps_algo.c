@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 16:06:20 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/11 16:47:09 by rgermain    ###    #+. /#+    ###.fr     */
 /*   Updated: 2019/02/11 11:47:07 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
@@ -54,7 +54,6 @@ static void	split_stack(t_pusw *lst, char sens)
 			if (lst->stack_b[lst->len_b] == lst->med)
 				find_mid_med(lst);
 			sens = find_midsens(lst);
-			//sens = 1;
 		}
 		else if (sens == 1 && lst->stack_b > 0 &&
 				lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
