@@ -6,41 +6,30 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 13:05:42 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/11 11:47:07 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	split_stack(t_pusw *lst, char sens)
+static void	find_mid_med(t_pusw *lst)
 {
-	lst->med = find_med(lst->stack_a, lst->len_a);
-	sens = find_midsens(lst);
-	while ((lst->len_b + 1) < lst->len_a)
-	{
-		ps_visu(lst);
-		if (lst->stack_a[lst->len_a] <= lst->med)
-		{
-			push_b(lst);
-			sens = find_midsens(lst);
-		}
-		else if (sens == 1 && lst->stack_b > 0 &&
-				lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-			rotate_ab(lst);
-		else if (sens == 0 && lst->stack_b > 0 &&
-				lst->stack_b[lst->len_b] > lst->stack_b[0])
-			rev_rotate_ab(lst);
-		else if (sens == 1)
-			rotate_a(lst);
-		else
-			rev_rotate_a(lst);
-	}
+	char	val;
+	int		min;
+	char	i;
+
+	val = 6;
+	min = find_min(lst->stack_a, lst->len_a);
+	i = 0;
+	while (i++ < ((lst->len_a / val) + (lst->len_a % val)))
+		min = find_next_min(lst->stack_a, lst->len_a, min);
+	lst->med = min;
 }
 
-static void	split_reste(t_pusw *lst, char sens)
+static void	split_stack(t_pusw *lst, char sens)
 {
-	lst->med = find_med(lst->stack_a, lst->len_a);
+	find_mid_med(lst);
 	sens = find_midsens(lst);
 	while (!sort_realstack_a(lst))
 	{
@@ -55,8 +44,8 @@ static void	split_reste(t_pusw *lst, char sens)
 		else if (lst->stack_a[lst->len_a] <= lst->med)
 		{
 			push_b(lst);
-			if (lst->med == lst->stack_b[lst->len_b])
-				lst->med = find_med(lst->stack_a, lst->len_a);
+			if (lst->stack_b[lst->len_b] == lst->med)
+				find_mid_med(lst);
 			sens = find_midsens(lst);
 		}
 		else if (sens == 1 && lst->stack_b > 0 &&
@@ -70,7 +59,6 @@ static void	split_reste(t_pusw *lst, char sens)
 		else
 			rev_rotate_a(lst);
 	}
-	ps_visu(lst);
 }
 
 static void	put_rest(t_pusw *lst, char sens, char ind_m, char ind_nm)
@@ -114,7 +102,6 @@ void		ps_algo(t_pusw *lst)
 	if (!ft_issort(lst))
 	{
 		split_stack(lst, 0);
-		split_reste(lst, 0);
 		put_rest(lst, 0, 0, 0);
 	}
 	ps_visu(lst);
