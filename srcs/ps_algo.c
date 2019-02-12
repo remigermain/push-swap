@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 19:21:34 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 19:28:09 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/12 10:39:02 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 static void	split_prevstack(t_pusw *lst, char sens)
 {
 	find_mid_med(lst);
-	while ((lst->len_b + 1) < lst->len_a)
+	while (!sort_realstack_a(lst) && (lst->len_b + 1 < lst->len_a))
 	{
 		ps_visu(lst);
 		if (lst->stack_a[lst->len_a] <= lst->med)
@@ -67,17 +67,22 @@ static void	split_stack(t_pusw *lst, char sens)
 
 static void	push_final(t_pusw *lst, char sens)
 {
+	int	val;
+
+	val = 8;
 	lst->max = find_max(lst->stack_b, lst->len_b);
 	lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
 	sens = find_sens2(lst);
 	while (lst->len_b != -1)
 	{
 		ps_visu(lst);
-		if (lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1] &&
-				lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+		if (((lst->len_a + lst->len_b + 2) < val) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+				lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 			swap_ab(lst);
-		else if (lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+		else if (((lst->len_a + lst->len_b + 2) < val) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
 			swap_a(lst);
+		else if (((lst->len_a + lst->len_b + 2) < val) && lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+			swap_b(lst);
 		else if (lst->len_b == 0 || lst->stack_b[lst->len_b] == lst->max ||
 			(lst->stack_b[lst->len_b] == lst->max_n))
 		{
