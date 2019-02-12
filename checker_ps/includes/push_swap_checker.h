@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 17:47:39 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/12 15:04:33 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,18 +21,22 @@ typedef struct	s_puswc
 	int		len_a;
 	int		*stack_b;
 	int		len_b;
+	int		*tri;
 	int		instruction;
+	int		time;
+	char	visu;
 	int		min;
 	int		max;
 }				t_puswc;
 
 int				check_arg(char **argv);
 void			ps_error(t_puswc *lst);
-t_puswc			*ps_struct_init(int argc, char **argv);
-void			ps_debug(t_puswc *lst);
-void			ps_debugs(t_puswc *lst, int nb, int index);
 void			ps_free(t_puswc *lst);
 int				ps_checker(t_puswc *lst);
+int				ps_interact(t_puswc *lst, int ret);
+void			ps_ivisu(t_puswc *lst);
+void			ps_visu(t_puswc *lst);
+void			ps_final_check(t_puswc *lst);
 int				ft_issort(t_puswc *lst);
 void			swap_a(t_puswc *lst);
 void			swap_b(t_puswc *lst);
