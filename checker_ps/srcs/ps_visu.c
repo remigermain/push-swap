@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/12 14:41:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 17:11:34 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/12 18:22:29 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,10 +24,10 @@ static int	pos_tab(t_puswc *lst, int i, char index)
 	while (index == 2 && lst->tri[j] != lst->stack_b[i] &&
 			j <= (lst->len_b + lst->len_a + 2))
 		j++;
-	return (j);
+	return ((lst->len_b + lst->len_a + 2) - j);
 }
 
-static void	print_stackb(t_puswc *lst)
+static void	print_stackb(t_puswc *lst, int plus)
 {
 	int	i;
 	int	pos;
@@ -36,13 +36,14 @@ static void	print_stackb(t_puswc *lst)
 	while (i < lst->len_b)
 	{
 		pos = pos_tab(lst, i, 2) + 11;
-		ft_printf("\033[44m", pos % 7);
-		ft_printf("%{T_LGREY}%*d%{B_EOC}", pos, lst->stack_b[i++]);
-		ft_printf("%*c\n", pos + 2, ' ');
+		ft_printf("\033[48;5;%dm", pos % 7);
+		ft_printf("%{T_BLACK}%*d", (pos / 2) + (plus / 2), lst->stack_b[i++]);
+		ft_printf("%*c%{B_EOC}", (pos / 2) + (plus % 2), ' ');
+		ft_printf("%*c\n", (lst->len_b + lst->len_a + 13) - pos, ' ');
 	}
 }
 
-static void	print_stacka(t_puswc *lst)
+static void	print_stacka(t_puswc *lst, int plus)
 {
 	int	i;
 	int	pos;
@@ -52,25 +53,28 @@ static void	print_stacka(t_puswc *lst)
 	{
 		pos = pos_tab(lst, i, 1) + 11;
 		ft_printf("\033[48;5;%dm", pos);
-		ft_printf("%{T_LGREY}%*d%{B_EOC}  ", pos, lst->stack_a[i--]);
-		ft_printf("%*c\n", pos + 2, ' ');
+		ft_printf("%{T_BLACK}%*d", (pos / 2) + (plus / 2), lst->stack_a[i--]);
+		ft_printf("%*c%{B_EOC}", (pos / 2) + (plus % 2), ' ');
+		ft_printf("%*c\n", (lst->len_b + lst->len_a + 13) - pos, ' ');
 	}
 }
 
 void		ps_visu(t_puswc *lst)
 {
+	int	plus;
 	int	len;
 	int	id;
 
 	if (lst->visu == 1)
 	{
 		len = lst->len_a + lst->len_b + 2;
+		plus = MAX(ft_intlen(lst->tri[0]), ft_intlen(lst->tri[len - 1])) + 3;
 		ft_printf("%*c\n", len + 13, ' ');
 		ft_printf("[STACK_B]%*c\n", len + 13, ' ');
-		print_stackb(lst);
+		print_stackb(lst, plus);
 		ft_printf("%*c\n", len + 13, ' ');
 		ft_printf("[STACK_A]%*c\n", len + 13, ' ');
-		print_stacka(lst);
+		print_stacka(lst, plus);
 		ft_printf("%*c\n", len + 13, ' ');
 		len += 4;
 		usleep(lst->time * 10000);
