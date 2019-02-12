@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 17:24:49 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/12 17:30:32 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,6 @@ static t_puswc	*ps_struct_init(int argc, char **argv)
 	lst->stack_a = NULL;
 	lst->stack_b = NULL;
 	lst->tri = NULL;
-	lst->instruction = 0;
 	lst->len_a = argc - 2;
 	lst->len_b = -1;
 	if (!(lst->stack_a = (int*)malloc(sizeof(int) * argc - 1)))
@@ -89,6 +88,7 @@ static int		main_manager(int argc, char **argv)
 	if (!check_arg(argv))
 		return (0);
 	lst = ps_struct_init(argc, argv);
+	lst->instruction = 0;
 	lst->visu = interact;
 	lst->time = (time == -2 ? 0 : time);
 	if (interact == 2)
