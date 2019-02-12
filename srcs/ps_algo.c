@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 19:21:34 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 10:50:48 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/12 11:36:04 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,6 +15,9 @@
 
 static void	split_prevstack(t_pusw *lst, char sens)
 {
+	int val;
+
+	val = 8;
 	find_mid_med(lst);
 	while (!sort_realstack_a(lst) && (lst->len_b + 1 < lst->len_a))
 	{
@@ -30,6 +33,13 @@ static void	split_prevstack(t_pusw *lst, char sens)
 			rotate_ab(lst);
 		else
 			rotate_a(lst);
+		if (((lst->len_a + lst->len_b + 2) < val) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+				lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+			swap_ab(lst);
+		else if (((lst->len_a + lst->len_b + 2) < val) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+			swap_a(lst);
+		else if (((lst->len_a + lst->len_b + 2) < val) && lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+			swap_b(lst);
 	}
 }
 
@@ -74,12 +84,7 @@ static void	push_final(t_pusw *lst, char sens)
 	while (lst->len_b != -1)
 	{
 		ps_visu(lst);
-		if ((lst->len_a + lst->len_b + 2) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
-				lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-			swap_ab(lst);
-		else if ((lst->len_a + lst->len_b + 2) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
-			swap_a(lst);
-		else if (lst->len_b == 0 || lst->stack_b[lst->len_b] == lst->max ||
+		if (lst->len_b == 0 || lst->stack_b[lst->len_b] == lst->max ||
 			(lst->stack_b[lst->len_b] == lst->max_n))
 		{
 			push_a(lst);
@@ -96,6 +101,11 @@ static void	push_final(t_pusw *lst, char sens)
 			rotate_b(lst);
 		else
 			rev_rotate_b(lst);
+		if ((lst->len_a + lst->len_b + 2) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+				lst->len_b > 0 && lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+			swap_ab(lst);
+		else if ((lst->len_a + lst->len_b + 2) && lst->len_a > 0 && lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+			swap_a(lst);
 	}
 }
 void		ps_algo(t_pusw *lst)
