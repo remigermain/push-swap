@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:46:13 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 11:12:06 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 18:53:54 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,7 +67,7 @@ int			check_arg(char **argv)
 	while (argv[++count] != NULL)
 	{
 		sign = 0;
-		if (argv[count][0] == '-' || argv[count][0] == '+')
+		if (argv[count][0] == '-')
 			sign = 1;
 		if (ft_strlen(argv[count] + sign) == 0 ||
 				!ft_atol(argv[count]) ||
