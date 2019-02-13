@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 19:12:21 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 19:18:10 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 18:31:55 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ void	find_mid_med(t_pusw *lst)
 	i = 0;
 	while (++i < ((lst->len_a / val) + (lst->len_a % val)))
 		min = find_next_min(lst->stack_a, lst->len_a, min);
-	lst->med = min;
+	lst->pivot = min;
 }
 
 int		find_sens2(t_pusw *lst)
@@ -44,8 +44,12 @@ int		find_sens2(t_pusw *lst)
 	t_pos2 = pos2;
 	if (pos > (lst->len_b / 2))
 		t_pos = lst->len_b - pos;
+	else
+		t_pos++;
 	if (pos2 > (lst->len_b / 2))
 		t_pos2 = lst->len_b - pos2;
+	else
+		t_pos2++;
 	if (t_pos < t_pos2)
 	{
 		if (pos > (lst->len_b / 2))

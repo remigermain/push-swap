@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/11 19:21:26 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 18:18:54 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -58,9 +58,9 @@ int	find_midsens(t_pusw *lst)
 
 	count = 0;
 	count2 = lst->len_a;
-	while (count <= lst->len_a && lst->stack_a[count] > lst->med)
+	while (count <= lst->len_a && lst->stack_a[count] > lst->pivot)
 		count++;
-	while (count2 >= 0 && lst->stack_a[count2] > lst->med)
+	while (count2 >= 0 && lst->stack_a[count2] > lst->pivot)
 		count2--;
 	if ((lst->len_a - count2) == (count + 1))
 	{

@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/02/11 19:21:34 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/13 17:48:38 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/02/13 18:17:14 by rgermain     #+#   ##    ##    #+#       */
+/*   Updated: 2019/02/13 18:50:53 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,17 +24,33 @@ static void	swap_final(t_pusw *lst)
 		swap_a(lst);
 }
 
+static void	swap_split(t_pusw *lst)
+{
+	if (lst->len_a > 0 && lst->len_b > 0 &&
+				lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+			lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+		swap_ab(lst);
+	else if (lst->len_a > 0 &&
+		lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+		swap_a(lst);
+	else if (lst->len_b > 0 &&
+		lst->stack_b[lst->len_b] > lst->stack_b[lst->len_b - 1])
+		swap_b(lst);
+
+}
+
 static void	split_stack(t_pusw *lst, char sens)
 {
 	ps_visu(lst);
 	find_mid_med(lst);
+	sens = find_midsens(lst);
 	while (!sort_realstack_a(lst) && lst->len_a != -1)
 	{
-		if (lst->stack_a[lst->len_a] <= lst->med)
+		if (lst->stack_a[lst->len_a] <= lst->pivot)
 		{
 			push_b(lst);
-			if (lst->stack_b[lst->len_b] == lst->med)
-				find_mid_med(lst);
+			find_mid_med(lst);
+			sens = find_midsens(lst);
 		}
 		else if (lst->len_b > 0 &&
 				lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
@@ -61,6 +77,7 @@ static void	push_final(t_pusw *lst, char sens)
 				sens = find_sens(lst, lst->max);
 			else
 			{
+				swap_final(lst);
 				lst->max = find_max(lst->stack_b, lst->len_b);
 				lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
 				sens = find_sens2(lst);
@@ -70,7 +87,6 @@ static void	push_final(t_pusw *lst, char sens)
 			rotate_b(lst);
 		else
 			rev_rotate_b(lst);
-		swap_final(lst);
 	}
 }
 
