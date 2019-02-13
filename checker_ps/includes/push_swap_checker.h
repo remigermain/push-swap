@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/13 14:12:36 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 15:04:59 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,9 +24,6 @@ typedef struct	s_puswc
 	int		*stack_b;
 	int		len_b;
 	int		*tri;
-	WINDOW	*win;
-	int		win_h;
-	int		win_w;
 	int		instruction;
 	int		time;
 	char	visu;
