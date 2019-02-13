@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 15:04:33 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 14:12:36 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,6 +14,8 @@
 #ifndef PUSH_SWAP_CHECKER_H
 # define PUSH_SWAP_CHECKER_H
 # include "../../libft/includes/libft.h"
+# include "/Users/rgermain/homebrew/opt/ncurses/include/curses.h"
+# include "/Users/rgermain/homebrew/opt/ncurses/include/ncurses.h"
 
 typedef struct	s_puswc
 {
@@ -22,6 +24,9 @@ typedef struct	s_puswc
 	int		*stack_b;
 	int		len_b;
 	int		*tri;
+	WINDOW	*win;
+	int		win_h;
+	int		win_w;
 	int		instruction;
 	int		time;
 	char	visu;
@@ -35,7 +40,8 @@ void			ps_free(t_puswc *lst);
 int				ps_checker(t_puswc *lst);
 int				ps_interact(t_puswc *lst, int ret);
 void			ps_ivisu(t_puswc *lst);
-void			ps_visu(t_puswc *lst);
+void			ps_visu(t_puswc *lst, int j);
+void			ps_visu_header(t_puswc *lst);
 void			ps_final_check(t_puswc *lst);
 int				ft_issort(t_puswc *lst);
 void			swap_a(t_puswc *lst);

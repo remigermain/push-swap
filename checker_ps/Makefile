@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/12 14:46:55 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/13 13:52:34 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -21,7 +21,7 @@ INCLUDE = -Iincludes
 HEADER = push_swap_checker.h
 
 LIBFT = ../libft/libft.a
-
+NCURSE = -lncurses
 OBJ = $(SRC:.c=.o)
 
 DSRC = srcs/
@@ -68,7 +68,7 @@ all: print_name $(NAME)
 $(NAME): $(COBJ)
 	@echo $(SPACE)"\033[JCompilation des Objects \033[38;5;326mterminer\033[0m"
 	@echo $(SPACE)"Compilation "$(TYPE)" \033[34m" $(NAME) "\033[0m"
-	@gcc $(COBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
+	@gcc $(COBJ) $(CFLAGS) $(LIBFT) $(NCURSE) -o $(NAME)
 
 $(DOBJ)%.o : $(DSRC)%.c $(CHEADER)
 	@$(eval COUNT = "0")
