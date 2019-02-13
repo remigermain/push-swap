@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/12 14:41:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 18:22:29 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/13 09:00:07 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,8 +27,9 @@ static int	pos_tab(t_puswc *lst, int i, char index)
 	return ((lst->len_b + lst->len_a + 2) - j);
 }
 
-static void	print_stackb(t_puswc *lst, int plus)
+static void	print_stackb(t_puswc *lst, int plus, int max)
 {
+	int	ret;
 	int	i;
 	int	pos;
 
@@ -36,15 +37,17 @@ static void	print_stackb(t_puswc *lst, int plus)
 	while (i < lst->len_b)
 	{
 		pos = pos_tab(lst, i, 2) + 11;
-		ft_printf("\033[48;5;%dm", pos % 7);
-		ft_printf("%{T_BLACK}%*d", (pos / 2) + (plus / 2), lst->stack_b[i++]);
-		ft_printf("%*c%{B_EOC}", (pos / 2) + (plus % 2), ' ');
-		ft_printf("%*c\n", (lst->len_b + lst->len_a + 13) - pos, ' ');
+		ft_printf("|  \033[48;5;%dm", pos % 7);
+		ret = ft_printf("%{T_BLACK}%*d", plus + (pos / 2),
+				lst->stack_a[i++]) - 5;
+		ret += ft_printf("%*c%{B_EOC}", pos - ret + plus, ' ') - 4;
+		ft_printf("%*c|\n", max - ret, ' ');
 	}
 }
 
-static void	print_stacka(t_puswc *lst, int plus)
+static void	print_stacka(t_puswc *lst, int plus, int max)
 {
+	int ret;
 	int	i;
 	int	pos;
 
@@ -52,33 +55,39 @@ static void	print_stacka(t_puswc *lst, int plus)
 	while (i >= 0)
 	{
 		pos = pos_tab(lst, i, 1) + 11;
-		ft_printf("\033[48;5;%dm", pos);
-		ft_printf("%{T_BLACK}%*d", (pos / 2) + (plus / 2), lst->stack_a[i--]);
-		ft_printf("%*c%{B_EOC}", (pos / 2) + (plus % 2), ' ');
-		ft_printf("%*c\n", (lst->len_b + lst->len_a + 13) - pos, ' ');
+		ft_printf("|  \033[48;5;%dm", pos);
+		ret = ft_printf("%{T_BLACK}%*d", plus + (pos / 2),
+				lst->stack_a[i--]) - 5;
+		ret += ft_printf("%*c%{B_EOC}", pos - ret + plus, ' ') - 4;
+		ft_printf("%*c|\n", max - ret, ' ');
 	}
 }
 
 void		ps_visu(t_puswc *lst)
 {
-	int	plus;
-	int	len;
-	int	id;
+	static int	index = 1;
+	int			max;
+	int			plus;
+	int			len;
 
 	if (lst->visu == 1)
 	{
 		len = lst->len_a + lst->len_b + 2;
-		plus = MAX(ft_intlen(lst->tri[0]), ft_intlen(lst->tri[len - 1])) + 3;
-		ft_printf("%*c\n", len + 13, ' ');
-		ft_printf("[STACK_B]%*c\n", len + 13, ' ');
-		print_stackb(lst, plus);
-		ft_printf("%*c\n", len + 13, ' ');
-		ft_printf("[STACK_A]%*c\n", len + 13, ' ');
-		print_stacka(lst, plus);
-		ft_printf("%*c\n", len + 13, ' ');
-		len += 4;
+		plus = MAX(ft_intlen(lst->tri[0]),
+				ft_intlen(lst->tri[len - 1])) + 2;
+		max = (plus * 2) + len;
+		ft_printf("|%*@|\n", max + 3, "char", '-');
+		ft_printf("|%*s%*c|\n", ((max + plus) / 2),
+				"[STACK_B]", (max / 2) - 4, ' ');
+		print_stackb(lst, plus, max);
+		ft_printf("|%*@|\n", max + 3, "char", '-');
+		ft_printf("|%*s%*c|\n", ((max + plus) / 2),
+				"[STACK_A]", (max / 2) - 4, ' ');
+		print_stacka(lst, plus, max);
+		ft_printf("|%*@|\n", max + 3, "char", '-');
 		usleep(lst->time * 10000);
 		if (!ft_issort(lst))
-			ft_printf("\033[K\033[%dA", len);
+			ft_printf("\033[K\033[%dA", len + 4 + index);
+		index = 0;
 	}
 }
