@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 19:12:21 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/14 14:01:29 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 16:38:38 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,24 +16,16 @@
 void	find_mid_med(t_pusw *lst)
 {
 	int	val;
-	int	origi;
 	int	min;
 	int	i;
 
-	origi = 10;
-	if (lst->len_a <= 240)
-		origi = 8;
-	if (lst->len_a <= 200)
-		origi = 7;
-	if (lst->len_a <= 110)
-		origi = 6;
-	if (lst->len_a <= 75)
-		origi = 5;
-	if (lst->len_a <= 45)
-		origi = 4;
-	val = origi;
+	val = 11;
+	i = -1;
+	if (lst->len_a >= 40 && lst->len_a <= 300)
+		val = (lst->len_a / 43) + 4;
+	else if (lst->len_a < 40)
+		val = 4;
 	min = find_min(lst->stack_a, lst->len_a);
-	i = (val == origi ? -1 : 0);
 	while (++i < (lst->len_a / val))
 		min = find_next_min(lst->stack_a, lst->len_a, min);
 	lst->pivot = min;
