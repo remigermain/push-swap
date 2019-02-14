@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:19:05 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 17:21:33 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 12:02:58 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -59,7 +59,8 @@ static void	ps_ivisu2(t_puswc *lst, int nb, int index)
 
 void		ps_ivisu(t_puswc *lst)
 {
-	if (lst->visu == 1 || lst->visu == 2)
+	if ((lst->visu == 1 || lst->visu == 2) &&
+			(lst->len_a + lst->len_b + 2) > 0)
 	{
 		ps_ivisu2(lst, 9, 0);
 		if (lst->time != -1)

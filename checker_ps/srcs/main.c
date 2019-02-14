@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 17:30:32 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 12:06:15 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -85,6 +85,8 @@ static int		main_manager(int argc, char **argv)
 	ret = 1;
 	time = init_time_interact(&argc, &argv);
 	interact = init_interact(&argc, &argv);
+	if (argc < 2)
+		return (1);
 	if (!check_arg(argv))
 		return (0);
 	lst = ps_struct_init(argc, argv);

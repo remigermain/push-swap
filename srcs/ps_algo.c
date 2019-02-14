@@ -6,23 +6,12 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/13 18:17:14 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/13 18:53:17 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 12:14:35 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	swap_final(t_pusw *lst)
-{
-	if (lst->len_a > 0 && lst->len_b > 0 &&
-				lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
-			lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-		swap_ab(lst);
-	else if (lst->len_a > 0 &&
-		lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
-		swap_a(lst);
-}
 
 static void	swap_split(t_pusw *lst)
 {
@@ -59,27 +48,92 @@ static void	split_stack(t_pusw *lst, char sens)
 			rotate_a(lst);
 		ps_visu(lst);
 	}
+//	sleep(4444);
+}
+
+
+static void swap_tmp(t_pusw *lst)
+{
+	if (lst->len_a > 0 && lst->len_b > 0 &&
+				lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+			lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+		swap_ab(lst);
+	else if (lst->len_a > 0 &&
+		lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+		swap_a(lst);	
+}
+
+static void	swap_final3(t_pusw *lst, char sens, char *sens2)
+{
+	if (lst->len_a > 2 &&
+		lst->stack_a[lst->len_a - 2] > lst->stack_a[lst->len_a - 3])
+	{
+		swap_tmp(lst);
+		if (sens == 1)
+			rotate_ab(lst);
+		else
+			rotate_a(lst);
+		(*sens2) = find_sens(lst, lst->max);
+		swap_tmp(lst);
+		sens = (*sens2);
+		if (sens == 1)
+			rotate_ab(lst);
+		else
+			rotate_a(lst);
+		swap_tmp(lst);
+		if (sens == 0)
+			rev_rotate_ab(lst);
+		else
+			rev_rotate_a(lst);
+		(*sens2) = find_sens(lst, lst->max);
+		swap_tmp(lst);
+		sens = (*sens2);
+		if (sens == 0)
+			rev_rotate_ab(lst);
+		else
+			rev_rotate_a(lst);
+		swap_tmp(lst);
+	}
+}
+
+static void	swap_final2(t_pusw *lst, char sens)
+{
+	if (lst->len_a > 1 &&
+		lst->stack_a[lst->len_a - 1] > lst->stack_a[lst->len_a - 2])
+	{
+		push_b(lst);
+		swap_tmp(lst);
+		push_b(lst);
+	}
+}
+
+static void	swap_final(t_pusw *lst)
+{
+	if (lst->len_a > 0 &&
+		lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+		swap_a(lst);
 }
 
 static void	push_final(t_pusw *lst, char sens)
 {
 	lst->max = find_max(lst->stack_b, lst->len_b);
 	lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
+	lst->max_nn = find_next_max(lst->stack_b, lst->len_b, lst->max_n);
 	sens = find_sens2(lst);
 	while (lst->len_b != -1)
 	{
 		ps_visu(lst);
-		if (lst->len_b == 0 || lst->stack_b[lst->len_b] == lst->max ||
-			(lst->stack_b[lst->len_b] == lst->max_n))
+		if (lst->len_b == 0 || lst->stack_b[lst->len_b] >= lst->max_nn)
 		{
 			push_a(lst);
-			if (lst->stack_a[lst->len_a] == lst->max_n)
+			if (lst->stack_a[lst->len_a] != lst->max)
 				sens = find_sens(lst, lst->max);
 			else
 			{
-				swap_final(lst);
+				ps_visu(lst);
 				lst->max = find_max(lst->stack_b, lst->len_b);
 				lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
+				lst->max_nn = find_next_max(lst->stack_b, lst->len_b, lst->max_n);
 				sens = find_sens2(lst);
 			}
 		}
@@ -87,6 +141,16 @@ static void	push_final(t_pusw *lst, char sens)
 			rotate_b(lst);
 		else
 			rev_rotate_b(lst);
+		swap_final3(lst, sens, &sens);
+		swap_final2(lst, sens);
+		swap_tmp(lst);
+		swap_final3(lst, sens, &sens);
+		swap_final2(lst, sens);
+		swap_tmp(lst);
+		swap_final3(lst, sens, &sens);
+		swap_final2(lst, sens);
+		swap_tmp(lst);
+	
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 10:28:48 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 15:11:45 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 09:34:11 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,10 @@ int		ft_issort(t_puswc *lst)
 	while (count > 0)
 	{
 		if (!(lst->stack_a[count] < lst->stack_a[count - 1]))
+		{
+			ft_printf("%{T_RED}ko =%{T_EOC} %d\n", count);
 			return (0);
+		}
 		count--;
 	}
 	return (1);
