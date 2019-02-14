@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/13 18:17:14 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/14 12:14:35 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/14 16:46:05 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,7 +48,6 @@ static void	split_stack(t_pusw *lst, char sens)
 			rotate_a(lst);
 		ps_visu(lst);
 	}
-//	sleep(4444);
 }
 
 
@@ -118,12 +117,11 @@ static void	push_final(t_pusw *lst, char sens)
 {
 	lst->max = find_max(lst->stack_b, lst->len_b);
 	lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
-	lst->max_nn = find_next_max(lst->stack_b, lst->len_b, lst->max_n);
 	sens = find_sens2(lst);
 	while (lst->len_b != -1)
 	{
 		ps_visu(lst);
-		if (lst->len_b == 0 || lst->stack_b[lst->len_b] >= lst->max_nn)
+		if (lst->len_b == 0 || lst->stack_b[lst->len_b] >= lst->max_n)
 		{
 			push_a(lst);
 			if (lst->stack_a[lst->len_a] != lst->max)
@@ -133,7 +131,6 @@ static void	push_final(t_pusw *lst, char sens)
 				ps_visu(lst);
 				lst->max = find_max(lst->stack_b, lst->len_b);
 				lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
-				lst->max_nn = find_next_max(lst->stack_b, lst->len_b, lst->max_n);
 				sens = find_sens2(lst);
 			}
 		}
@@ -141,16 +138,7 @@ static void	push_final(t_pusw *lst, char sens)
 			rotate_b(lst);
 		else
 			rev_rotate_b(lst);
-		swap_final3(lst, sens, &sens);
-		swap_final2(lst, sens);
 		swap_tmp(lst);
-		swap_final3(lst, sens, &sens);
-		swap_final2(lst, sens);
-		swap_tmp(lst);
-		swap_final3(lst, sens, &sens);
-		swap_final2(lst, sens);
-		swap_tmp(lst);
-	
 	}
 }
 
