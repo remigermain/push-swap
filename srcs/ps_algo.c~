@@ -44,6 +44,8 @@ static void	split_stack(t_pusw *lst, char sens)
 		else if (lst->len_b > 0 &&
 				lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 			rotate_ab(lst);
+		else if (sens == 1)
+			rev_rotate_a(lst);
 		else
 			rotate_a(lst);
 		ps_visu(lst);
