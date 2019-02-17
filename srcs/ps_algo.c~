@@ -81,8 +81,14 @@ static void	push_final(t_pusw *lst, char sens)
 				lst->max = find_max(lst->stack_b, lst->len_b);
 				lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
 				sens = find_sens2(lst);
+				if (sens == 0 && lst->len_a > 0 && lst->stack_a[0] < lst->stack_a[lst->len_a])
+					rev_rotate_ab(lst);
+				else if (lst->len_a > 0 && lst->stack_a[0] < lst->stack_a[lst->len_a])
+					rev_rotate_a(lst);
 			}
 		}
+		else if (sens == 1 && lst->len_a > 0 && lst->stack_a[lst->len_a] == lst->max_n)
+			rotate_ab(lst);
 		else if (sens == 1)
 			rotate_b(lst);
 		else

@@ -4,5 +4,6 @@ TMP=`./push_swap $ARG | wc -l | sed 's/ //g'`
 echo "nombre d'instruction = "$TMP
 TMP=`./push_swap $ARG | ./checker_ps/checker $ARG`
 echo "checker = "$TMP
+echo
 echo "arg = "
 echo $ARG
