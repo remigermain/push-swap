@@ -39,7 +39,9 @@ then
 		then
 			BEST=${TMP}
 		fi
-		echo -e "number of instruction over ${MAX} is = \033[31;1m${TOTAL}\033[0m "
+		(( TOTAL2 = (( $TOTAL * 100) / ($COUNTER) )))
+		printf %.10f\\n "$(( ($TOTAL * F100) / $COUNTER ))"
+		echo -e "number of instruction over ${MAX} is = \033[31;1m${TOTAL}\033[0m percent = ${TOTAL2}"
 		echo -e "Worst = \033[31;1m${WORSE}\033[0m instructions"
 		echo -e "Average = \033[33;1m${MED}\033[0m instructions  "
 		echo -e "Best = \033[36;1m${BEST}\033[0m instructions  "
@@ -47,5 +49,5 @@ then
 	done
 	echo -e "\033[?25h\033[3B"
 else
-	echo "./complexity [stack_size] [test number] [max instruction"
-fi
+	echo "./complexity [stack_size] [test number] [max instruction]"
+ fi
