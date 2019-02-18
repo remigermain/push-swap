@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/18 14:21:53 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/18 15:12:45 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -36,7 +36,7 @@ PSCHECKER_N :
 PSCHECKER_R :
 	@make -C checker_ps/ re
 
-#CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 INCLUDE = -Iincludes
 

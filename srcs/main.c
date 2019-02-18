@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 10:49:00 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 16:30:57 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,8 +49,6 @@ static int		main_manager(int argc, char **argv)
 
 int				main(int argc, char **argv)
 {
-	int ret;
-
 	if (argc > 1)
 		if (!main_manager(argc, argv))
 			ft_dprintf(2, "Error\n");

@@ -6,12 +6,23 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/13 18:17:14 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 14:18:56 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 16:26:00 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void	swap_final(t_pusw *lst)
+{
+	if (lst->len_a > 0 && lst->len_b > 0 &&
+				lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
+			lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
+		swap_ab(lst);
+	else if (lst->len_a > 0 &&
+		lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
+		swap_a(lst);
+}
 
 static void	split_stack(t_pusw *lst, char sens)
 {
@@ -38,17 +49,6 @@ static void	split_stack(t_pusw *lst, char sens)
 	}
 }
 
-static void	swap_final(t_pusw *lst)
-{
-	if (lst->len_a > 0 && lst->len_b > 0 &&
-				lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1] &&
-			lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
-		swap_ab(lst);
-	else if (lst->len_a > 0 &&
-		lst->stack_a[lst->len_a] > lst->stack_a[lst->len_a - 1])
-		swap_a(lst);
-}
-
 static void	rotate_final(t_pusw *lst, char sens)
 {
 	if (sens == 1 && lst->len_a > 0 &&
@@ -61,7 +61,6 @@ static void	rotate_final(t_pusw *lst, char sens)
 		rev_rotate_ab(lst);
 	else
 		rev_rotate_b(lst);
-	swap_final(lst);
 }
 
 static void	push_final(t_pusw *lst, char sens)
@@ -88,6 +87,7 @@ static void	push_final(t_pusw *lst, char sens)
 		}
 		else
 			rotate_final(lst, sens);
+		swap_final(lst);
 	}
 }
 
@@ -97,6 +97,14 @@ void		ps_algo(t_pusw *lst)
 	{
 		if (lst->len_a == 1)
 			swap_a(lst);
+		else if (lst->len_a == 2)
+		{
+			swap_final(lst);
+			if (lst->stack_a[0] < lst->stack_a[2] ||
+				lst->stack_a[0] < lst->stack_a[1])
+				rev_rotate_a(lst);
+			swap_final(lst);
+		}
 		else
 		{
 			split_stack(lst, 0);
