@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 11:50:31 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 13:27:22 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -91,7 +91,7 @@ int			ps_interact(t_puswc *lst, int ret)
 	int		index;
 
 	ps_ivisu(lst);
-	while (get_next_line(0, &line) == 1)
+	while (get_next_line(lst->fd, &line) == 1)
 	{
 		if (!ft_strcmp(line, "break") ||
 				(!ft_strcmp(line, "undo") && lst->instruction > 0))

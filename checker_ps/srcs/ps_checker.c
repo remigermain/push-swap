@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 11:35:27 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 13:27:35 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,7 +49,7 @@ int			ps_checker(t_puswc *lst)
 
 	ps_visu(lst, 1);
 	index = 0;
-	while (get_next_line(0, &line) == 1)
+	while (get_next_line(lst->fd, &line) == 1)
 	{
 		if (!ps_checker2(lst, line))
 			index = 1;

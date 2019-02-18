@@ -1,0 +1,14 @@
+if [[ $# -gt 0 ]]
+then
+	NUM=$(($1 - 1))
+	ARG=`ruby -e "puts (0..$NUM).to_a.shuffle.join(' ')"`
+	TMP=`./push_swap $ARG | wc -l`
+	echo "nombre d'instruction = "$TMP
+	TMP=`./push_swap $ARG | ./checker_ps/checker $ARG`
+	echo "checker = "$TMP
+	echo
+	echo "arg = "
+	echo $ARG
+else
+	echo ./test [number of arguments]
+fi

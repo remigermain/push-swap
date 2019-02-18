@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 19:12:21 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 12:46:33 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 14:00:08 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,7 +42,7 @@ int			find_sens_fin(t_pusw *lst)
 		return (1);
 	return (0);
 }
-#include <stdio.h>
+
 int			find_sens_pivot(t_pusw *lst)
 {
 	int pos;
@@ -61,17 +61,6 @@ int			find_sens_pivot(t_pusw *lst)
 		return (0);
 	}
 	if ((lst->len_a - pos) < pos2 + 1)
-		return (1);
-	return (0);
-	printf("pos2 = [%5d]  [%5d] \n", lst->stack_a[pos2], pos2);
-	printf(" pos =  [%5d]  [%5d] \n\n", lst->stack_a[pos], pos);
-	if (find_sens_fin2(lst, pos) < find_sens_fin2(lst, pos2))
-	{
-		if (pos >= (lst->len_b / 2))
-			return (1);
-		return (0);
-	}
-	if (pos2 >= (lst->len_b / 2))
 		return (1);
 	return (0);
 }

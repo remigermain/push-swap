@@ -6,40 +6,28 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:11 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 10:49:21 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 13:47:10 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap_checker.h"
 
-static t_puswc	*ps_struct_init(int argc, char **argv)
+static int		init_file(int *argc, char ***argv)
 {
-	t_puswc	*lst;
-	size_t	count;
+	int fd;
 
-	count = 0;
-	lst = NULL;
-	if (!(lst = (t_puswc*)malloc(sizeof(t_puswc))))
-		ps_error(lst);
-	lst->stack_a = NULL;
-	lst->stack_b = NULL;
-	lst->tri = NULL;
-	lst->len_a = argc - 2;
-	lst->len_b = -1;
-	if (!(lst->stack_a = (int*)malloc(sizeof(int) * argc)))
-		ps_error(lst);
-	if (!(lst->stack_b = (int*)malloc(sizeof(int) * argc)))
-		ps_error(lst);
-	if (!(lst->tri = (int*)malloc(sizeof(int) * argc)))
-		ps_error(lst);
-	while (--argc > 0)
+	fd = 0;
+	if (!ft_strcmp((*argv)[(*argc) - 2], "-f"))
 	{
-		lst->stack_a[count] = ft_atoi(argv[argc]);
-		lst->tri[count++] = ft_atoi(argv[argc]);
+		if (!(fd = open((*argv)[(*argc) - 1], O_RDONLY)))
+			fd = 0;
+		(*argv)[(*argc) - 2] = NULL;
+		(*argc) -= 2;
 	}
-	ft_sort_integer_table(lst->tri, lst->len_a + 1);
-	return (lst);
+	if ((*argc) < 2)
+		return (-1);
+	return (fd);
 }
 
 static int		init_time_interact(int *argc, char ***argv)
@@ -54,6 +42,8 @@ static int		init_time_interact(int *argc, char ***argv)
 		(*argv)[(*argc) - 1] = NULL;
 		(*argc) -= 1;
 	}
+	if ((*argc) < 2)
+		return (-1);
 	return (time);
 }
 
@@ -72,6 +62,8 @@ static char		init_interact(int *argc, char ***argv)
 		(*argv)[(*argc) - 1] = NULL;
 		(*argc) -= 1;
 	}
+	if ((*argc) < 2)
+		return (-1);
 	return (interact);
 }
 
@@ -81,15 +73,16 @@ static int		main_manager(int argc, char **argv)
 	char	interact;
 	int		time;
 	int		ret;
+	int		fd;
 
 	ret = 1;
-	time = init_time_interact(&argc, &argv);
-	interact = init_interact(&argc, &argv);
-	if (argc < 2)
-		return (1);
-	if (!check_arg(argv))
+	if ((fd = init_file(&argc, &argv)) == -1 ||
+		(time = init_time_interact(&argc, &argv)) == -1 ||
+		(interact = init_interact(&argc, &argv)) == -1 ||
+		!check_arg(argv))
 		return (0);
 	lst = ps_struct_init(argc, argv);
+	lst->fd = fd;
 	lst->instruction = 0;
 	lst->visu = interact;
 	lst->time = (time == -2 ? 0 : time);
@@ -97,6 +90,8 @@ static int		main_manager(int argc, char **argv)
 		ps_interact(lst, 1);
 	else
 		ret = ps_checker(lst);
+	if (lst->fd != 0)
+		close(fd);
 	ps_free(lst);
 	return (ret);
 }
