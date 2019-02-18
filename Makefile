@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/13 08:45:12 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/18 11:15:10 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -61,10 +61,9 @@ CHEADER = $(addprefix $(DHEADER),$(HEADER))
 # *****************************************************************************#
 
 SRC = main.c check_arg.c ps_algo.c \
-		ps_interact.c utils.c ps_debug.c \
+		utils.c ps_algo_find.c ps_algo_find2.c \
 		ps_instruct_push.c ps_instruct_revrotate.c \
-		ps_instruct_rotate.c ps_instruct_swap.c \
-		ps_algo_sort.c ps_algo_find.c ps_algo_find2.c ps_algo_find3.c \
+		ps_instruct_rotate.c ps_instruct_swap.c
 
 COUNT = "1"
 SPACE = "                    "

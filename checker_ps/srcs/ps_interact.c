@@ -6,15 +6,16 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/12 17:21:19 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 11:50:31 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "push_swap_checker.h"
 
-static void	ps_interact2(t_puswc *lst, char *line)
+static int	ps_interact2(t_puswc *lst, char *line, int ins)
 {
+	ins = lst->instruction;
 	if (!ft_strcmp(line, "sa"))
 		swap_a(lst);
 	else if (!ft_strcmp(line, "sb"))
@@ -37,6 +38,7 @@ static void	ps_interact2(t_puswc *lst, char *line)
 		rev_rotate_ab(lst);
 	else if (!ft_strcmp(line, "pa"))
 		push_a(lst);
+	return (ins);
 }
 
 static void	ps_interact_undo(t_puswc *lst, char *line)
@@ -76,7 +78,7 @@ static int	ps_free_interact(t_puswc *lst, char **line)
 	{
 		if (!ft_strcmp((*line), "break"))
 			ps_final_check(lst);
-		if (!ft_strcmp((*line), "undo"))
+		else if (!ft_strcmp((*line), "undo"))
 			ret = -1;
 		ft_memdel((void**)line);
 	}
@@ -85,19 +87,21 @@ static int	ps_free_interact(t_puswc *lst, char **line)
 
 int			ps_interact(t_puswc *lst, int ret)
 {
-	char *line;
+	char	*line;
+	int		index;
 
 	ps_ivisu(lst);
 	while (get_next_line(0, &line) == 1)
 	{
-		if (!ft_strcmp(line, "break") || !ft_strcmp(line, "undo"))
+		if (!ft_strcmp(line, "break") ||
+				(!ft_strcmp(line, "undo") && lst->instruction > 0))
 			return (ps_free_interact(lst, &line));
 		else
-			ps_interact2(lst, line);
+			index = ps_interact2(lst, line, 0);
 		ret = ps_interact(lst, 1);
 		if (ret == 0)
 			return (ps_free_interact(lst, &line));
-		else if (ret == -1)
+		else if (ret == -1 && index != lst->instruction)
 			ps_interact_undo(lst, line);
 		ft_memdel((void**)&line);
 		ps_ivisu(lst);

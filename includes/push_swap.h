@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/13 18:18:28 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 11:06:48 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,13 +21,10 @@ typedef struct	s_pusw
 	int		len_a;
 	int		*stack_b;
 	int		len_b;
-	size_t	instruction;
 	int		pivot;
 	int		max;
 	int		max_n;
 	int		max_nn;
-	char	visu;
-	int		time;
 }				t_pusw;
 
 /*
@@ -57,9 +54,9 @@ int				find_min(int *stack, int len);
 int				find_med(int *stack, int len);
 int				find_nb(int *stack, int len, int nb);
 int				find_sens(t_pusw *lst, int max);
-int				find_midsens(t_pusw *lst);
-void			find_mid_med(t_pusw *lst);
-int				find_sens2(t_pusw *lst);
+int				find_sens_pivot(t_pusw *lst);
+void			find_pivot(t_pusw *lst);
+int				find_sens_fin(t_pusw *lst);
 
 /*
 **----------------------------------------------------------------------

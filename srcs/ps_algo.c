@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/13 18:17:14 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/14 16:46:05 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 11:14:22 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -30,23 +30,21 @@ static void	swap_split(t_pusw *lst)
 
 static void	split_stack(t_pusw *lst, char sens)
 {
-	ps_visu(lst);
-	find_mid_med(lst);
-	sens = find_midsens(lst);
+	find_pivot(lst);
+	sens = find_sens_pivot(lst);
 	while (!sort_realstack_a(lst) && lst->len_a != -1)
 	{
 		if (lst->stack_a[lst->len_a] <= lst->pivot)
 		{
 			push_b(lst);
-			find_mid_med(lst);
-			sens = find_midsens(lst);
+			find_pivot(lst);
+			sens = find_sens_pivot(lst);
 		}
 		else if (lst->len_b > 0 &&
 				lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
 			rotate_ab(lst);
 		else
 			rotate_a(lst);
-		ps_visu(lst);
 	}
 }
 
@@ -66,10 +64,9 @@ static void	push_final(t_pusw *lst, char sens)
 {
 	lst->max = find_max(lst->stack_b, lst->len_b);
 	lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
-	sens = find_sens2(lst);
+	sens = find_sens_fin(lst);
 	while (lst->len_b != -1)
 	{
-		ps_visu(lst);
 		if (lst->len_b == 0 || lst->stack_b[lst->len_b] >= lst->max_n)
 		{
 			push_a(lst);
@@ -77,10 +74,9 @@ static void	push_final(t_pusw *lst, char sens)
 				sens = find_sens(lst, lst->max);
 			else
 			{
-				ps_visu(lst);
 				lst->max = find_max(lst->stack_b, lst->len_b);
 				lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
-				sens = find_sens2(lst);
+				sens = find_sens_fin(lst);
 				if (sens == 0 && lst->len_a > 0 && lst->stack_a[0] < lst->stack_a[lst->len_a])
 					rev_rotate_ab(lst);
 				else if (lst->len_a > 0 && lst->stack_a[0] < lst->stack_a[lst->len_a])
@@ -108,7 +104,5 @@ void		ps_algo(t_pusw *lst)
 			split_stack(lst, 0);
 			push_final(lst, 0);
 		}
-		ps_visu(lst);
 	}
-	ps_visu(lst);
 }

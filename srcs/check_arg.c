@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:46:13 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/13 18:53:54 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 11:14:27 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ static int	check_doublon(char **argv)
 int			check_arg(char **argv)
 {
 	size_t	count;
-	MINT	sign;
+	char	sign;
 
 	count = 0;
 	while (argv[++count] != NULL)

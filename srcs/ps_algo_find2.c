@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/08 09:13:12 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 11:10:49 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,4 +67,15 @@ int	find_next_max(int *stack, int len, int tmp)
 		len--;
 	}
 	return (min);
+}
+
+int	find_nb(int *stack, int len, int nb)
+{
+	while (len >= 0)
+	{
+		if (stack[len] == nb)
+			return (len);
+		len--;
+	}
+	return (0);
 }

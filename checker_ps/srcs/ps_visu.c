@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/12 14:41:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/13 15:12:58 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 10:51:43 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,10 +65,10 @@ static void	print_stacka(t_puswc *lst, int plus, int max)
 
 void		ps_visu(t_puswc *lst, int j)
 {
-	int			max;
-	int			plus;
-	int			len;
-	
+	int	max;
+	int	plus;
+	int	len;
+
 	if (lst->visu == 1)
 	{
 		len = lst->len_a + lst->len_b + 2;

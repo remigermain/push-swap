@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/07 13:45:21 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 11:43:04 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,13 +16,17 @@
 void	push_a(t_puswc *lst)
 {
 	if (lst->len_b >= 0)
+	{
 		lst->stack_a[++lst->len_a] = lst->stack_b[lst->len_b--];
-	lst->instruction++;
+		lst->instruction++;
+	}
 }
 
 void	push_b(t_puswc *lst)
 {
 	if (lst->len_a >= 0)
+	{
 		lst->stack_b[++lst->len_b] = lst->stack_a[lst->len_a--];
-	lst->instruction++;
+		lst->instruction++;
+	}
 }
