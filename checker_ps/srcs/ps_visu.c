@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/12 14:41:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 10:51:43 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 12:23:08 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,14 +74,14 @@ void		ps_visu(t_puswc *lst, int j)
 		len = lst->len_a + lst->len_b + 2;
 		plus = MAX(ft_intlen(lst->tri[0]),
 				ft_intlen(lst->tri[len - 1])) + 2;
-		max = (plus * 4) + len;
+		max = (plus * 4) + len + 9;
 		ft_printf("|%*@|\n", max + 3, "char", '-');
 		ft_printf("|%*s%*c|\n", (max / 2),
-				"[STACK_B]", (max / 2) + 2, ' ');
+				"[STACK_B]", (max / 2) + 3, ' ');
 		print_stackb(lst, plus, max);
 		ft_printf("|%*@|\n", max + 3, "char", '-');
 		ft_printf("|%*s%*c|\n", (max / 2),
-				"[STACK_A]", (max / 2) + 2, ' ');
+				"[STACK_A]", (max / 2) + 3, ' ');
 		print_stacka(lst, plus, max);
 		ft_printf("|%*@|\n", max + 3, "char", '-');
 		usleep(lst->time * 10000);

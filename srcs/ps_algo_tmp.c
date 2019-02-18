@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/13 18:17:14 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 13:15:02 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 12:55:40 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,7 +32,7 @@ static void	split_stack(t_pusw *lst, char sens)
 {
 	find_pivot(lst);
 	sens = find_sens_pivot(lst);
-	while (!sort_realstack_a(lst) && lst->len_a != 0)
+	while (!sort_realstack_a(lst) && lst->len_a != -1)
 	{
 		if (lst->stack_a[lst->len_a] <= lst->pivot)
 		{
@@ -40,10 +40,10 @@ static void	split_stack(t_pusw *lst, char sens)
 			find_pivot(lst);
 			sens = find_sens_pivot(lst);
 		}
-		else if (sens == 0 && lst->len_a < 10 && lst->len_b > 0 &&
+		else if (sens == 0 && lst->len_a < 20 && lst->len_b > 0 &&
 				lst->stack_b[lst->len_b] < lst->stack_b[0])
 			rev_rotate_ab(lst);
-		else if (sens == 0 && lst->len_a < 10)
+		else if (sens == 0 && lst->len_a < 20)
 			rev_rotate_a(lst);
 		else if (lst->len_b > 0 &&
 				lst->stack_b[lst->len_b] < lst->stack_b[lst->len_b - 1])
@@ -92,8 +92,6 @@ static void	push_final(t_pusw *lst, char sens)
 			rotate_ab(lst);
 		else if (sens == 1)
 			rotate_b(lst);
-		else if (sens == 0 && lst->len_a > 0 && lst->stack_a[0] < lst->stack_a[lst->len_a])
-			rev_rotate_ab(lst);
 		else
 			rev_rotate_b(lst);
 		swap_tmp(lst);

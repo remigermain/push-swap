@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 11:06:48 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/18 12:50:14 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,6 +15,7 @@
 # define PUSH_SWAP_H
 # include "../libft/includes/libft.h"
 
+//#define ft_printf(...) ft_printf("")
 typedef struct	s_pusw
 {
 	int		*stack_a;
