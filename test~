@@ -1,9 +1,0 @@
-NUM=$(($1 - 1))
-ARG=`ruby -e "puts (0..$NUM).to_a.shuffle.join(' ')"`
-TMP=`./push_swap $ARG | wc -l | sed 's/ //g'`
-echo "nombre d'instruction = "$TMP
-TMP=`./push_swap $ARG | ./checker_ps/checker $ARG`
-echo "checker = "$TMP
-echo
-echo "arg = "
-echo $ARG
