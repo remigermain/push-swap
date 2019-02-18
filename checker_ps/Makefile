@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/18 13:48:47 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/02/18 14:22:40 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -70,7 +70,7 @@ $(NAME): $(COBJ)
 	@echo $(SPACE)"Compilation "$(TYPE)" \033[34m" $(NAME) "\033[0m"
 	@gcc $(COBJ) $(CFLAGS) $(LIBFT) $(NCURSE) -o $(NAME)
 
-$(DOBJ)%.o : $(DSRC)%.c $(CHEADER)
+$(DOBJ)%.o : $(DSRC)%.c $(CHEADER) $(LIBFT)
 	@$(eval COUNT = "0")
 	@mkdir -p $(DOBJ)
 	@mkdir -p $(addprefix $(DOBJ), $(ALL_D))
