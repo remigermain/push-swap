@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/13 18:17:14 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 16:26:00 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/11 11:22:52 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -112,5 +112,6 @@ void		ps_algo(t_pusw *lst)
 			lst->max_n = find_next_max(lst->stack_b, lst->len_b, lst->max);
 			push_final(lst, find_sens_fin(lst));
 		}
+		write(1, lst->ps_buff, lst->ps_count);
 	}
 }

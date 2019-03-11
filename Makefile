@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/18 15:12:45 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/03/11 11:32:59 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -121,9 +121,6 @@ re_clean:
 re: LIBFT_R PSCHECKER_R re_clean print_name $(NAME)
 
 norme : print_norme
-	@echo $(SPACE)"waiting \033[5m ...\033[0m"
-	@sleep 1
-	@echo "\033[0m\033[K\033[1A"$(SPACE) $(SPACE) $(SPACE) 
 	@norminette $(CSRC) $(CHEADER) | sed "s,Norme,${ESC}[38;5;326m&${ESC}[0m," | sed "s/Error/  Error/g" | sed "s,Error,${ESC}[31m&${ESC}[0m,"
 
 normeall : LIBFT_N PSCHECKER_N norme print_norme

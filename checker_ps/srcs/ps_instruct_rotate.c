@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 11:52:20 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/11 11:33:27 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,9 +49,6 @@ void	rotate_b(t_puswc *lst)
 
 void	rotate_ab(t_puswc *lst)
 {
-	int	len;
-
-	len = lst->len_a;
 	if (lst->len_a > 0 || lst->len_b > 0)
 	{
 		rotate_a(lst);

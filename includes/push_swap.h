@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 09:33:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 14:05:26 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/11 11:21:08 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,6 +14,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include "../libft/includes/libft.h"
+# define PS_BUFFSIZE 10
 
 typedef struct	s_pusw
 {
@@ -24,7 +25,8 @@ typedef struct	s_pusw
 	int		pivot;
 	int		max;
 	int		max_n;
-	int		max_nn;
+	char	ps_buff[PS_BUFFSIZE];
+	int		ps_count;
 }				t_pusw;
 
 /*
@@ -105,6 +107,7 @@ void			rev_rotate_ab(t_pusw *lst);
 /*
 **	utils.c
 */
+void			ps_putbuff(t_pusw *lst, char *str, char len);
 void			ps_error(t_pusw *lst);
 void			ps_free(t_pusw *lst);
 

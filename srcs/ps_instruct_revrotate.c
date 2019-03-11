@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 10:23:23 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/11 11:29:52 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ void	rev_rotate_a(t_pusw *lst)
 			lst->stack_a[len] = lst->stack_a[len + 1];
 			len++;
 		}
-		ft_printf("rra\n");
+		ps_putbuff(lst, "rra\n", 4);
 	}
 }
 
@@ -43,7 +43,7 @@ void	rev_rotate_b(t_pusw *lst)
 			lst->stack_b[len] = lst->stack_b[len + 1];
 			len++;
 		}
-		ft_printf("rrb\n");
+		ps_putbuff(lst, "rrb\n", 4);
 	}
 }
 
@@ -71,5 +71,5 @@ void	rev_rotate_ab(t_pusw *lst)
 			len++;
 		}
 	}
-	ft_printf("rrr\n");
+	ps_putbuff(lst, "rrr\n", 4);
 }

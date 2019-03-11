@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/02/18 16:31:07 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/03/11 11:33:13 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -88,9 +88,6 @@ fclean: clean
 re: fclean all
 
 norme : print_norme
-	@echo $(SPACE)"waiting \033[5m ...\033[0m"
-	@sleep 2
-	@echo "\033[0m\033[K\033[1A"$(SPACE) $(SPACE) $(SPACE)
 	@norminette $(CSRC) $(CHEADER) | sed "s,Norme,${ESC}[38;5;326m&${ESC}[0m," | sed "s/Error/  Error/g" | sed "s,Error,${ESC}[31m&${ESC}[0m,"
 
 .PHONY: default all clean fclean re norme print_libft print_norme

@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/01 11:55:41 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 10:24:52 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/11 11:24:11 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,7 @@ void	swap_a(t_pusw *lst)
 		swap = lst->stack_a[lst->len_a];
 		lst->stack_a[lst->len_a] = lst->stack_a[lst->len_a - 1];
 		lst->stack_a[lst->len_a - 1] = swap;
-		ft_printf("sa\n");
+		ps_putbuff(lst, "sa\n", 3);
 	}
 }
 
@@ -35,7 +35,7 @@ void	swap_b(t_pusw *lst)
 		swap = lst->stack_b[lst->len_b];
 		lst->stack_b[lst->len_b] = lst->stack_b[lst->len_b - 1];
 		lst->stack_b[lst->len_b - 1] = swap;
-		ft_printf("sb\n");
+		ps_putbuff(lst, "sb\n", 3);
 	}
 }
 
@@ -57,6 +57,6 @@ void	swap_ab(t_pusw *lst)
 			lst->stack_b[lst->len_b] = lst->stack_b[lst->len_b - 1];
 			lst->stack_b[lst->len_b - 1] = swap;
 		}
-		ft_printf("ss\n");
+		ps_putbuff(lst, "ss\n", 3);
 	}
 }
