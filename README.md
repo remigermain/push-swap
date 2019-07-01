@@ -77,3 +77,7 @@ rrr :rra et rrb en même temps
         -v      for visual
         -i      for interactive mod
 ```
+
+## credit :fr:
+
+The pushswap made by rgermain
