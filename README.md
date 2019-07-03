@@ -88,7 +88,7 @@ rrr :rra et rrb en même temps
         -i      for interactive mod
 ```
 
-### Iinteractive mode
+# Interactive mode
 
 commande allow in interative mode is :
 
