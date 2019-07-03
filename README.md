@@ -1,8 +1,14 @@
 # pushswap :heavy_check_mark:
 
-![alt text](/readmeimg/ps1.png)
+## Visualisation 
+<img src="/readmeimg/ps1.png" width="30%" height="30%" title="visualisation whitout sort">
+<img src="/readmeimg/ps2.png" width="30%" height="30%" title="visualisation white sort">
 
-Le programme “push_swap”
+## Interative mode
+<img src="/readmeimg/ps3.png" width="30%" height="30%" title="interactive mode">
+
+
+## Le programme “push_swap”
 
 •Vous devez écrire un programme nommépush_swap qui prend en paramètre la
 pile 'a' sous la forme d’une liste d’entiers.
