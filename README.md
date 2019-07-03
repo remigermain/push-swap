@@ -2,12 +2,12 @@
 
 ## Visualisation 
 <p align="center">
-    <img src="/readmeimg/ps1.png" width="30%" height="30%" title="visualisation whitout sort">
-    <img src="/readmeimg/ps2.png" width="30%" height="30%" title="visualisation white sort">
+    <img src="/readme_img/ps1.png" width="30%" height="30%" title="visualisation whitout sort">
+    <img src="/readme_img/ps2.png" width="30%" height="30%" title="visualisation white sort">
 </p>
 
 ## Interative mode
-<img src="/readmeimg/ps3.png" width="30%" height="30%" title="interactive mode">
+<img src="/readme_img/ps3.png" width="30%" height="30%" title="interactive mode">
 
 
 ## Le programme “push_swap”
