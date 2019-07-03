@@ -1,5 +1,7 @@
 # pushswap :heavy_check_mark:
 
+![alt text](/readmeimg/ps1.png)
+
 Le programme “push_swap”
 
 •Vous devez écrire un programme nommépush_swap qui prend en paramètre la
