@@ -88,6 +88,14 @@ rrr :rra et rrb en même temps
         -i      for interactive mod
 ```
 
+### Iinteractive mode
+
+commande allow in interative mode is :
+
+``
+sa | sb | ss | pa | pb | ra | rb | rr | rra | rrb | rrr | undo ( for undo instruction ) | break ( for stop interactive and print True if stack is sorted )
+``
+
 ## credit :fr:
 
 The pushswap made by rgermain
